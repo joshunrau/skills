@@ -13,14 +13,14 @@ npx skills add joshunrau/skills
 Or install a single skill:
 
 ```sh
-npx skills add joshunrau/skills --skill hello-world
+npx skills add joshunrau/skills --skill interview
 ```
 
 ## Skills
 
 | Skill | Description |
 | --- | --- |
-| [hello-world](skills/hello-world/SKILL.md) | Proof-of-concept skill that greets the user. |
+| [interview](skills/interview/SKILL.md) | A relentless interview to sharpen a plan or design. |
 
 ## Adding a New Skill
 
