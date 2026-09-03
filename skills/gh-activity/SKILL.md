@@ -51,6 +51,56 @@ python3 <skill-dir>/scripts/gh_activity.py reviews --since 2026-08-01
 
 Interpret the scope and date range from the user's request ("my work in org X since last Friday", "this week") and pass them via `--owner`/`repos`/`--since`. Run `summary` first unless the user asked for one specific slice.
 
-Then write a readable narrative for the user, not a dump of the raw output: group related work into themes (e.g. a feature that spans several repos, review work vs. authored work), note which days were active, and call out anything open or in progress. Keep the raw per-repo detail available but lead with the story.
+Then rewrite the output in the format below. Do not paste the script's output back; it is source material, not the deliverable.
 
 Known data quirks (from the GitHub events API, not script bugs): merge pushes may report "0 commits", and PR titles can be missing from `events` output — the search-based subcommands (`prs`, `reviews`, `commits`) have the authoritative details.
+
+## Output format
+
+The same shape every time, so recaps from different weeks read as one series.
+
+**Sections.** One section per repo, opened by the bare repo name in bold with the owner stripped (`**checkout-service**`, not `acme/checkout-service`). Use bold, not a markdown heading. Order the sections by how much total activity each repo holds, busiest first. Every repo gets its own section, even one holding a single item.
+
+**No opening and no closing.** No title, no date range, no lead paragraph, no totals line. The first line of the recap is the first repo name.
+
+**No numbers.** Never report counts — not in the repo name, not in the trailing bullets, not as a tally at the end. Name the items instead, or characterize them.
+
+**Bullets.** Each bullet is one unit of work, not one commit. Drop merge commits entirely. Where a PR exists it anchors the bullet; where a repo has only direct commits, cluster related commits into themed bullets rather than listing them.
+
+Write bullets in past tense with an implied subject, in plain prose — do not reuse PR titles or conventional-commit prefixes. State what changed, then add a clause naming the problem it solved when that is not self-evident from the change. Two lines at most. Reference issues and PRs as bare `#N`; no URLs.
+
+Work that has not landed stays in its repo section, phrased in the present participle and marked `— open`.
+
+**Trailing bullets.** Close the list with these bullets, in this order, omitting any that would be empty:
+
+- `Reviewed:` — PRs the user reviewed, named with their `#N`.
+- `Filed:` — issues the user opened, named with their `#N`.
+- `Discussed:` — included only when comments amount to real work; give the topics the thread covered, never a list of individual comments.
+
+A repo whose only activity is a review or a discussion gets its bold name and those trailing bullets alone.
+
+### Example
+
+```markdown
+**checkout-service**
+- Added the database indexes every cart query depends on, which were missing entirely (#412)
+- Closed an authorization gap that let any store manager delete another store's orders (#418)
+- Reworking refund expiry so a lapsed refund can be reissued rather than recreated — open (#421)
+- Reviewed: bulk coupon import (#419), the retry banner on failed payments (#415)
+- Filed: order-total rounding drift on multi-currency carts (#409), a duplicate submit-button testid (#410)
+
+**report-builder**
+- Reworked report templates to compile at boot behind a bundler seam and be addressed by name under a mounted root, so a template no longer has to ship inside the app
+- Split the template SDK onto its own release line, versioned with the app
+- Rewrote the reference pages as a field tree instead of tables
+
+**design-system**
+- Stacked number radio fields vertically when there are few options, so the second choice is no longer right-justified away from the eye line (#119)
+- Filed: two-option radio groups render right-justified and are easy to miss (#118)
+
+**docs-site**
+- Discussed: heading capitalization, the deprecation banner's wording, and whether the changelog belongs in the sidebar
+
+**sdk-python**
+- Reviewed: the async client's timeout defaults (#77)
+```
