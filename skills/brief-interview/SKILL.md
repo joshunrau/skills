@@ -1,6 +1,6 @@
 ---
-name: quick-interview
-description: A quick interview to sharpen a plan or design.
+name: brief-interview
+description: A brief interview to sharpen a plan or design.
 disable-model-invocation: true
 ---
 
