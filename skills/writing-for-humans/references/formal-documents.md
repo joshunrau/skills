@@ -72,10 +72,11 @@ When responding to feedback, all generic rules apply, especially G5 (concede the
 
 **F28.** Before contesting a position, restate it neutrally with enough detail that the reader can see you understood it. In a point-by-point response, this is a brief paraphrase; in a longer document it may be a full paragraph.
 
+**F33.** Defend a questioned choice or constraint (a budget, timeline, scope, method, or staffing decision) in three parts: acknowledge the concern, reframe it, then supply evidence that the choice is adequate.
+
 ## Proposals (Provisional, Limited Evidence)
 
-Treat F29 and F33 as provisional options for proposal drafts. Their evidence comes from assisted writing; use them when the requested form and argument call for them.
+Treat F29 as a provisional option for proposal drafts. Its evidence comes from assisted writing; use it when the requested form calls for it.
 
 **F29.** Within a fixed form, subdivide sections with bold run-in labels followed by a colon rather than adding heading levels.
 
-**F33.** Defend a questioned budget or resource constraint with a three-part structure: acknowledge the concern, reframe it, then supply evidence of adequacy.
