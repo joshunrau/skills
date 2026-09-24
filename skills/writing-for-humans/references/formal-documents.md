@@ -4,7 +4,7 @@ Use for reports, proposals, pitches, position papers, and written responses to c
 
 ## Sentence Devices
 
-For G8, the formal stance-adverb inventory is: Indeed, Interestingly, Notably, Importantly, Admittedly, Certainly, Essentially, Potentially, Overall. In polished formal prose, "Unfortunately," is typically removed on revision, with rare exceptions in responses to critique and narrative briefings.
+For G8, the formal stance-adverb inventory has two tiers. Use freely: Admittedly, Essentially, Potentially, Overall. Use sparingly, and only in extended formal argument where the stance is doing real work: Indeed, Interestingly, Notably, Importantly, Certainly. Never insert an adverb from either tier just to show the device; leave the sentence bare if nothing earns it. In polished formal prose, "Unfortunately," is typically removed on revision, with rare exceptions in responses to critique and narrative briefings.
 
 For G10, use an impersonal assessment in formal argument (", which suggests the rollout is on track"); narrative prose may use first person.
 
@@ -16,11 +16,11 @@ For G10, use an impersonal assessment in formal argument (", which suggests the 
 
 **F2.** Rather than summarizing background the reader does not need, point to a source in a parenthesis that names the kind of source: "(for a comprehensive overview, see the 2023 industry report)"; "(for a detailed breakdown, see Appendix C)."
 
-**F3.** The sentence supplying a supporting instance for, or an intensified restatement of, the preceding claim opens with "Indeed,". This device belongs to formal argument, not to email or technical explanation.
+**F3.** The sentence supplying a supporting instance for, or an intensified restatement of, the preceding claim may open with "Indeed," in extended formal argument. Use it sparingly; most supporting sentences need no opener. This device belongs to formal argument, not to email or technical explanation.
 
 **F4.** Inferences in formal argument are opened with sentence-initial "Hence,", alternating with "Thus," and "Therefore," within a single document. These connectives are introduced in polishing; early drafts may use only "Therefore,".
 
-**F5.** When reporting a finding or outcome, (a) open with a stance adverb that flags its importance or unexpectedness ("Interestingly,"; "Notably,"; "Importantly,"; "In particular,"); and (b) state explicitly how expected the result was before explaining it, using graded phrasing ("not particularly surprising"; "somewhat surprising"; "as expected given the constraints").
+**F5.** When reporting a finding or outcome, (a) where the finding is genuinely important or unexpected, you may flag it with a stance adverb ("Notably,"; "Importantly,"; "In particular,"); and (b) state explicitly how expected the result was before explaining it, using graded phrasing ("not particularly surprising"; "somewhat surprising"; "as expected given the constraints").
 
 **F6.** After stating a need, gap, or goal, introduce the approach with "To this end," or "To that end,": "Inventory errors remain the leading cause of delays. To this end, we developed an automated verification system."
 
