@@ -22,7 +22,7 @@ For G10, use an impersonal assessment in formal argument (", which suggests the 
 
 **F5.** When reporting a finding or outcome, (a) where the finding is genuinely important or unexpected, you may flag it with a stance adverb ("Notably,"; "Importantly,"; "In particular,"); and (b) state explicitly how expected the result was before explaining it, using graded phrasing ("not particularly surprising"; "somewhat surprising"; "as expected given the constraints").
 
-**F6.** After stating a need, gap, or goal, introduce the approach with "To this end," or "To that end,": "Inventory errors remain the leading cause of delays. To this end, we developed an automated verification system."
+**F6.** After stating a need, gap, or goal, "To this end," or "To that end," is one way to introduce the approach: "Inventory errors remain the leading cause of delays. To this end, we developed an automated verification system." 
 
 **F7.** After a negated or contrasted statement, introduce the correct alternative with "Rather," or a fronted "Rather than X, Y"; mark a paired contrast with "By contrast,".
 
