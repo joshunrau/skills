@@ -64,6 +64,8 @@ For G10, use an impersonal assessment in formal argument (", which suggests the 
 
 **F27.** Formal documents making a sustained argument open with a purpose statement followed by a sentence that previews the document's parts in the order they appear: "In this report, I describe the findings from the audit, assess their implications, and outline the next steps."
 
+**F30.** When surveying alternatives (competitors, existing solutions, prior approaches), work through them in a systematic order (each named, its strengths noted, its limitation stated) before stating the gap your approach fills. Scale the detail to the comparison: a sentence per alternative when the reader already knows them or the comparison is secondary, and a paragraph or more when the comparison carries the argument.
+
 ## Response to Critique
 
 When responding to feedback, all generic rules apply, especially G5 (concede then contest), G16 (verdict first), G17 (direct answer first), and G7 (close alternatives). In addition:
@@ -72,10 +74,8 @@ When responding to feedback, all generic rules apply, especially G5 (concede the
 
 ## Proposals (Provisional, Limited Evidence)
 
-Treat F29–F33 as provisional options for proposal drafts. Their evidence comes from assisted writing; use them when the requested form and argument call for them.
+Treat F29 and F33 as provisional options for proposal drafts. Their evidence comes from assisted writing; use them when the requested form and argument call for them.
 
 **F29.** Within a fixed form, subdivide sections with bold run-in labels followed by a colon rather than adding heading levels.
-
-**F30.** When surveying alternatives (competitors, existing solutions, prior approaches), work through them in a systematic order (each named, its strengths noted, its limitation stated) before stating the gap your proposal fills.
 
 **F33.** Defend a questioned budget or resource constraint with a three-part structure: acknowledge the concern, reframe it, then supply evidence of adequacy.
