@@ -54,7 +54,7 @@ For G10, use an impersonal assessment in formal argument (", which suggests the 
 
 **F21.** The first sentence of a document or a major overview section is a definitional statement about the subject. Where a source exists, anchor it in the form the document uses: a citation in academic writing ("Predictive maintenance is the use of data-driven techniques to anticipate equipment failure before it occurs (Lee et al., 2014)."), a named source or link elsewhere, or no source at all when the definition is the organization's own.
 
-**F22.** When a document reports work you did, end the framing section with what you set out to do (the aims, often enumerated), not with a preview of the result.
+**F22.** In academic writing that reports your own work, end the framing section with what you set out to do (the aims, often enumerated), not with a preview of the result. 
 
 **F24.** When a result diverges from what the reader expects or from prior work, name the divergence, give the most likely cause in the next sentence ("This discrepancy is likely due to ..."; "The difference may be explained by the fact that ..."), then supply one supporting detail. 
 
