@@ -14,7 +14,7 @@ For G10, use an impersonal assessment in formal argument (", which suggests the 
 
 **F1.** After an abstract statement, supply one concrete instance in a sentence beginning "For example," or "For instance,". The instance is often hypothetical or fully worked: "For example, a warehouse processing 200 shipments per day would see a 12% reduction in handling time."
 
-**F2.** Rather than summarizing background the reader does not need, point to a source in a parenthesis that names the kind of source: "(for a comprehensive overview, see the 2023 industry report)"; "(for a detailed breakdown, see Appendix C)."
+**F2.** Rather than summarizing background the reader does not need, point them to where it lives, and say what they will find there. Match the pointer to the document. In academic or highly formal writing, a parenthetical works: "(for a detailed breakdown, see Appendix C)". In most business documents, a plain clause or sentence reads better: "Appendix C breaks this down by region."; "The 2023 industry report covers the background in detail." 
 
 **F3.** The sentence supplying a supporting instance for, or an intensified restatement of, the preceding claim may open with "Indeed," in extended formal argument. Use it sparingly; most supporting sentences need no opener. This device belongs to formal argument, not to email or technical explanation.
 
@@ -50,9 +50,9 @@ For G10, use an impersonal assessment in formal argument (", which suggests the 
 
 **F19.** Limitations and caveats are signposted with an impersonal evaluative frame: "it is important to acknowledge that ..."; "it is critical not to overstate ..."; "it is worth noting, however, that ...". Email uses first person for the same move.
 
-**F20.** A premise the reader should take as settled gets a consensus marker plus a source, not a bare assertion: "It is now well established that supply-chain visibility reduces lead times (Garcia et al., 2022)."
+**F20.** A premise the reader should take as settled gets support, not a bare assertion: signal that it is settled and say where that comes from. Match the form to the document. In academic writing, use a consensus marker and a citation: "It is now well established that supply-chain visibility reduces lead times (Garcia et al., 2022)." In business documents, name the evidence in the sentence: "Last year's vendor audit confirmed that better supply-chain visibility shortens lead times."
 
-**F21.** The first sentence of a document or a major overview section is a definitional statement about the subject, anchored to a source where one exists: "Predictive maintenance is the use of data-driven techniques to anticipate equipment failure before it occurs (Lee et al., 2014)."
+**F21.** The first sentence of a document or a major overview section is a definitional statement about the subject. Where a source exists, anchor it in the form the document uses: a citation in academic writing ("Predictive maintenance is the use of data-driven techniques to anticipate equipment failure before it occurs (Lee et al., 2014)."), a named source or link elsewhere, or no source at all when the definition is the organization's own.
 
 **F22.** When a document reports work you did, end the framing section with what you set out to do (the aims, often enumerated), not with a preview of the result.
 
