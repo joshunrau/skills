@@ -5,9 +5,32 @@ description: Draft or edit skills for Claude or other agents. Use for drafting, 
 
 # Writing Skills for Agents
 
-Rule: another agent reading this skill, with zero prior context and no files other than those committed in the repo, should be able to understand everything in the skill completely.
+**Golden Rule of Skills**: another agent reading this skill, with zero prior context and no files other than those committed in the repo, should be able to understand everything in the skill completely.
 
-Test: have a subagent verify this.
+## Write for every input, not the case you learned from
+
+When you turn examples into a rule, write the rule in the terms of the domain it governs, not the domain the examples came from. 
+
+You usually write or edit a skill right after working one specific case: a bug, a document, a specific script, SOP, or workflow. Call it the *source case*. The skill will be read on inputs that share NONE of the source case's incidental details, so every
+line has to hold across the skill's whole scope. 
+
+Test each line before keeping it:
+1. Imagine the most different input the skill is still meant to handle.
+2. Check that each noun in the line refers to something in that input.
+3. For each noun that fails, ask what role it played in the source case and
+   write the role instead. If no role survives, the line records a fact
+   about the source case: delete it, or move it to wherever that data lives.
+
+How general a line needs to be depends on the skill's description. Before
+testing a line, read the description and find the input furthest from the
+source case that the description still covers. Test the line against that
+input.
+
+it should depend on the description and purpose of a skill what the most general case is. For instance, a skill for "debugging Node.js applications" can include specific JavaScript debugging techniques. A skill on "systematic debugging" cannot.
+
+## Verifying
+
+Have a subagent verify your skill passes the Golden Rule of Skills.
 
 ## Anti-Patterns
 
@@ -171,3 +194,9 @@ Example snippet:
   and critics attack them freely. While checkers were told those decisions were "agreed direction", the regression
   checks rejected 1 fix in 30. Once that framing was dropped, they rejected 11 in 61.
 ~~~~
+
+/interview I want you to help me draft writing-skills-for-agents. To start, I found a bunch of examples of things I DO NOT like. I want you to clarify what I dislike about each one. Then, we can figure out how to select examples to include in the skill itself, and how to present them. We should aim for a concise start to this. I will later add more positive examples.
+
+The key in each of these examples is that it breaks the Golden Rule of Skills. 
+
+Wha
