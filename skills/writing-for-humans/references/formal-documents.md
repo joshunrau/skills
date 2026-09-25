@@ -18,7 +18,7 @@ For G10, use an impersonal assessment in formal argument (", which suggests the 
 
 **F3.** The sentence supplying a supporting instance for, or an intensified restatement of, the preceding claim may open with "Indeed," in extended formal argument. Use it sparingly; most supporting sentences need no opener. This device belongs to formal argument, not to email or technical explanation.
 
-**F4.** Inferences in formal argument are opened with sentence-initial "Hence,", alternating with "Thus," and "Therefore," within a single document. These connectives are introduced in polishing; early drafts may use only "Therefore,".
+**F4.** Inferences in formal argument are opened with sentence-initial "Hence,", alternating with "Thus," and "Therefore," within a single document. 
 
 **F5.** When reporting a finding or outcome, (a) where the finding is genuinely important or unexpected, you may flag it with a stance adverb ("Notably,"; "Importantly,"; "In particular,"); and (b) state explicitly how expected the result was before explaining it, using graded phrasing ("not particularly surprising"; "somewhat surprising"; "as expected given the constraints").
 
