@@ -5,7 +5,33 @@ description: Draft or edit skills for Claude or other agents. Use for drafting, 
 
 # Writing Skills for Agents
 
-## The Golden Rule
+## Skill Structure
+
+```
+skill-name/
+├── SKILL.md           # Main instructions (required)
+├── references/        # Detailed docs (if needed)
+└── scripts/           # Utility scripts (if needed)
+    └── helper.js
+```
+
+## When to Add References
+
+Add reference documents when:
+- SKILL.md exceeds 200 lines
+
+## When to Add Scripts
+
+Add utility scripts when:
+- Operation is deterministic (validation, formatting)
+- Same code would be generated repeatedly
+- Errors need explicit handling
+
+Scripts save tokens and improve reliability vs generated code
+
+## Anti-Pattern: Overfitting to the Case That Just Happened
+
+### The Golden Rule
 
 Write for an agent that has no memory of the session that produced the skill, holds only the files committed in the repo, and is working on an input maximally dissimilar to the one you just handled while still within the skill's scope. Every line must be understandable to that agent and useful to it.
 
@@ -13,11 +39,11 @@ You usually write or edit a skill right after working one specific case: a bug, 
 
 The description sets the scope. Before testing a line, read the description and find the input furthest from the source case that it still covers. A skill for "debugging Node.js applications" can name JavaScript debugging techniques; a skill for "systematic debugging" cannot.
 
-## Three Ways a Line Fails
+### Three Ways a Line Fails
 
 Check each line against all three, in this order. A line can fail more than one.
 
-### 1. Dangling references
+#### 1. Dangling references
 
 The reader cannot resolve a name. Every path, name, and term in the skill must resolve to one of three places: a file committed in the repo, a definition in the skill itself, or general knowledge of the domain.
 
@@ -32,13 +58,13 @@ Tells:
 
 Fix: commit the file, define the term in the skill, or delete the reference.
 
-### 2. Run reports
+#### 2. Run reports
 
 The line records what happened instead of telling the reader what to do. Dates, counts, "results", which inputs were processed and what broke: these are log entries. Past tense on its own is fine; a past observation can back an instruction (see evidence, below).
 
 Fix: extract the instruction the report implies and write it as an instruction. Delete the rest.
 
-### 3. Details from the source case
+#### 3. Details from the source case
 
 The line names something from the source case that the dissimilar input does not contain. Run the **noun test**: for each noun in the line, check that it refers to something in the dissimilar input. Then sort each noun that fails:
 
@@ -46,11 +72,11 @@ The line names something from the source case that the dissimilar input does not
 - **Evidence** that supports a rule: keep it, and say that it is one observation and what produced it, so the reader can weigh it.
 - **The subject of the instruction**: write the role it played in the source case instead. "`checkout.spec.ts` flakes under parallel runs" becomes "a test that flakes under parallel runs".
 
-## Examples
+### Examples
 
 All excerpts come from a fictional skill, `triage-ci-failures`: "Triage failing CI jobs in a repo, separate flaky failures from real ones, and file or fix each."
 
-### Dangling references
+#### Dangling references
 
 Before:
 
@@ -66,12 +92,12 @@ After:
 Priority: P1 blocks merges, P2 fails on rerun, P3 fails once and passes on rerun. Mark timeouts P2.
 ~~~
 
-### Run reports
+#### Run reports
 
 Before:
 
 ~~~markdown
-## Triage run (Sep 2026)
+**Triage run (Sep 2026)**
 
 14 failures: 9 flaky, 3 real, 2 unresolved. `payments-e2e` timed out on both reruns, so it was left open.
 ~~~
@@ -84,7 +110,7 @@ After:
 A job that times out on every rerun is not flaky. Leave it open and assign it.
 ~~~
 
-### Details from the source case: data
+#### Details from the source case: data
 
 Before:
 
@@ -96,7 +122,7 @@ Each test name, job name, and flag value fails the noun test, and the reader wou
 
 After: deleted. The flaky list belongs in a quarantine file or the issue tracker, where it is maintained.
 
-### Details from the source case: evidence
+#### Details from the source case: evidence
 
 Before:
 
