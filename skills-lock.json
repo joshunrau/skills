@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "interview": {
+      "source": "joshunrau/skills",
+      "sourceType": "github",
+      "skillPath": "skills/interview/SKILL.md",
+      "computedHash": "55a42682493950e5adc12b0e5081fb88387d666c193352378661effd2efb2890"
+    }
+  }
+}
