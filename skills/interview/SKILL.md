@@ -1,12 +1,10 @@
 ---
 name: interview
-description: A relentless interview to sharpen a plan or design.
+description: A interview to sharpen a plan or design.
 disable-model-invocation: true
 ---
 
-Interview me relentlessly about every aspect of this until we reach a shared understanding. Walk down each branch of the decision tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
-
-If the arguments start with `brief`, run a brief interview instead: cover every branch of the decision tree, but only its upper levels (e.g., the structural forks such as approach, scope, and major tradeoffs). Do not descend into lower-level details. Leave them out of the questions and the final summary; they get settled later. Everything else below still applies.
+Interview me about every aspect of this until we reach a shared understanding. Walk down each branch of the decision tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
 
 Before the first question, explore the environment, then calibrate the session in one message:
 - Open with one or two sentences restating the task, to show you understand it. Do not list what you found while exploring; raise each finding later, as a question, when its branch comes up.
