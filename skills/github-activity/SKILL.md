@@ -88,26 +88,22 @@ A repo whose only activity is a review or a discussion gets its bold name and th
 ### Example
 
 ```markdown
-**checkout-service**
-- Added the database indexes that every cart query depends on, which were missing entirely ([#412](https://github.com/acme/checkout-service/pull/412))
-- Closed an authorization gap that let any store manager delete another store's orders ([#418](https://github.com/acme/checkout-service/pull/418))
-- Reworking refund expiry so a lapsed refund can be reissued rather than recreated ([#421](https://github.com/acme/checkout-service/pull/421), open)
-- Reviewed: bulk coupon import ([#419](https://github.com/acme/checkout-service/pull/419)), the retry banner on failed payments ([#415](https://github.com/acme/checkout-service/pull/415))
-- Filed: order totals drift by a cent on multi-currency carts ([#409](https://github.com/acme/checkout-service/issues/409))
-
-**report-builder**
-- Rebuilt template loading so templates compile at boot and load by name from a mounted directory, instead of shipping inside the app
-- Split the template SDK into its own package, released on the same version line as the app
-- Rewrote the reference pages as a field tree instead of tables
-
-**design-system**
-- Stacked number radio fields vertically when there are few options, so the second choice is no longer pushed to the right edge ([#119](https://github.com/acme/design-system/pull/119))
-
-**docs-site**
-- Discussed: heading capitalization, the deprecation banner wording, and whether the changelog belongs in the sidebar
-
-**sdk-python**
-- Reviewed: the async client's timeout defaults ([#77](https://github.com/acme/sdk-python/pull/77))
+- **checkout-service**
+  - Added the database indexes that every cart query depends on, which were missing entirely ([#412](https://github.com/acme/checkout-service/pull/412))
+  - Closed an authorization gap that let any store manager delete another store's orders ([#418](https://github.com/acme/checkout-service/pull/418))
+  - Reworking refund expiry so a lapsed refund can be reissued rather than recreated ([#421](https://github.com/acme/checkout-service/pull/421), open)
+  - Reviewed: bulk coupon import ([#419](https://github.com/acme/checkout-service/pull/419)), the retry banner on failed payments ([#415](https://github.com/acme/checkout-service/pull/415))
+  - Filed: order totals drift by a cent on multi-currency carts ([#409](https://github.com/acme/checkout-service/issues/409))
+- **report-builder**
+  - Rebuilt template loading so templates compile at boot and load by name from a mounted directory, instead of shipping inside the app
+  - Split the template SDK into its own package, released on the same version line as the app
+  - Rewrote the reference pages as a field tree instead of tables
+- **design-system**
+  - Stacked number radio fields vertically when there are few options, so the second choice is no longer pushed to the right edge ([#119](https://github.com/acme/design-system/pull/119))
+- **docs-site**
+  - Discussed: heading capitalization, the deprecation banner wording, and whether the changelog belongs in the sidebar
+- **sdk-python**
+  - Reviewed: the async client's timeout defaults ([#77](https://github.com/acme/sdk-python/pull/77))
 ```
 
 In that example, `design-system` also had an issue reporting the right-justified radio group, filed and closed inside the same window. It has no `Filed:` bullet, because the fix above it already covers that work.
