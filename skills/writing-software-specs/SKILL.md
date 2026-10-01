@@ -1,6 +1,6 @@
 ---
 name: writing-software-specs
-description: Draft or edit a software specification (SPEC) for a platform or feature before it is implemented. Use when creating, revising, or extending a spec. Not for API reference docs, READMEs, or design docs describing existing code.
+description: Draft or edit a software specification (SPEC.md) for a platform or feature. Use when creating, revising, or extending a spec.
 ---
 
 # Writing Software Specs
