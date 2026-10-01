@@ -27,6 +27,7 @@ Subcommands (default is `summary`; bare repo names after the script path are tre
 | `prs` | Pull requests the user authored |
 | `reviews` | Pull requests the user reviewed (authored by others) |
 | `issues` | Issues the user opened |
+| `merged` | Pull requests the user merged (authored by others) |
 | `events` | Raw event feed: pushes, branch create/delete, comments |
 
 Flags (valid on every subcommand):
@@ -53,57 +54,83 @@ Interpret the scope and date range from the user's request ("my work in org X si
 
 Then rewrite the output in the format below. Do not paste the script's output back; it is source material, not the deliverable.
 
+Write the recap to `ACTIVITY.md` in the current working directory, unless the user names another path or asks for it inline. Overwrite the file if it already exists.
+
 Known data quirks (from the GitHub events API, not script bugs): merge pushes may report "0 commits", and PR titles can be missing from `events` output. The search-based subcommands (`prs`, `reviews`, `commits`) have the authoritative details.
 
 ## Output format
 
 The same shape every time, so recaps from different weeks read as one series.
 
-**Sections.** One section per repo, opened by the bare repo name in bold with the owner stripped (`**checkout-service**`, not `acme/checkout-service`). Use bold, not a markdown heading. Order the sections by how much total activity each repo holds, busiest first. Every repo gets its own section, even one holding a single item.
+**Structure.** Three levels of bullets, never more:
 
-**No opening and no closing.** No title, no date range, no lead paragraph, no totals line. The first line of the recap is the first repo name.
+1. One top-level bullet per repo: the bare repo name in bold with the owner stripped (`**checkout-service**`, not `acme/checkout-service`). Order repos by total activity, busiest first. Every repo gets its own bullet, even one holding a single item.
+2. Items under the repo, one per unit of work, followed by the category bullets described below.
+3. Detail bullets under an item, from none to five.
 
-**No numbers.** Never report counts, not in the repo name, not in the trailing bullets, not as a tally at the end. Name the items instead, or characterize them.
+**No opening and no closing.** No title, no date range, no lead paragraph, no totals line. The first line of the recap is the first repo.
 
-**Links.** Every PR and issue reference is a markdown link, so it is clickable: `[#412](https://github.com/acme/checkout-service/pull/412)`. Take the URL from the `url` field in the script's `--json` output. Commits have no URL, so a bullet built only from direct commits carries no reference at all; do not invent one.
+**No numbers.** Never report counts, not in the repo name, not in the category bullets, not as a tally at the end. Name the items instead, or characterize them.
 
-**Bullets.** Each bullet is one unit of work, not one commit. Drop merge commits entirely. Where a PR exists it anchors the bullet; where a repo has only direct commits, cluster related commits into themed bullets rather than listing them.
+**Links.** Every PR and issue reference is a markdown link, so it is clickable: `[#412](https://github.com/acme/checkout-service/pull/412)`. Take the URL from the `url` field in the script's `--json` output. Commits have no URL, so an item built only from direct commits carries no reference at all; do not invent one.
 
-Write bullets in past tense with an implied subject. State what changed, then add a clause naming the problem it solved when that is not self-evident from the change. Two lines at most.
+**Items.** One item per PR. When a PR makes several separate changes, list them as detail bullets under that one item; do not split the PR across items or chain the changes with "Also". PRs that follow up on each other may share one item carrying both links. Work without a PR (direct commits, releases, issue cleanup) is clustered into themed items. Drop merge commits entirely.
+
+Write each item as a proper past-tense sentence with an implied subject, stating what changed. Most items need nothing more. Give the reason only for a significant change whose reason is not obvious from the change itself, and put it in a detail bullet rather than appending it to the item. Small or self-explanatory work never gets a reason.
+
+**Details.** A major feature or PR gets detail bullets naming its notable changes, up to five, written like items. A small PR gets none.
 
 **Plain language.** Describe a code change literally, as a change to code. Avoid inflated verbs and buzzwords: no minted, leveraged, orchestrated, harnessed, empowered, unlocked, surfaced, or delivered. Prefer added, removed, fixed, renamed, moved, split, replaced, and rewrote. Do not reuse PR titles or conventional-commit prefixes.
 
 **No em dashes.** Never write an em dash. Use a comma, a colon, parentheses, or a second sentence. The single exception is text quoted verbatim from a source.
 
-**Open work.** Work that has not landed stays in its repo section, phrased in the present participle, with `open` noted alongside the reference.
+**Open work.** Work that has not landed stays in its repo, phrased in the present participle, with `open` noted alongside the reference.
 
-**Trailing bullets.** Close the list with these bullets, in this order, omitting any that would be empty:
+**Leave out trivia.** Omit activity too small to mention, such as a single short comment on an issue.
 
-- `Reviewed:` PRs the user reviewed, named and linked.
-- `Filed:` issues the user opened that are still open. An issue the user both filed and closed within the window does not appear here; the fix is already a bullet of its own, and listing the filing reports the same work twice.
-- `Discussed:` included only when comments amount to real work. Give the topics the thread covered, never a list of individual comments.
+**Category bullets.** Close each repo with these category bullets, in this order, omitting any that would be empty. Each is a bare label whose children are one PR or issue per line, named in a short phrase and linked. These children never get detail bullets.
 
-A repo whose only activity is a review or a discussion gets its bold name and those trailing bullets alone.
+- `Merged`: PRs by others that the user reviewed and that have merged (`reviews` entries with state `MERGED`), plus PRs the user merged (the `merged` list). List each PR once.
+- `Reviewed`: the remaining PRs the user reviewed, still open or closed without merging. A PR under `Merged` never appears here.
+- `Filed Issues`: issues the user opened that are still open. An issue the user both filed and closed within the window does not appear here; the fix is already an item of its own, and listing the filing reports the same work twice.
+- `Discussed`: included only when comments amount to real work. Its children are the topics the thread covered, never individual comments.
+
+A repo whose only activity falls under these categories gets its bold name and the category bullets alone.
 
 ### Example
 
 ```markdown
 - **checkout-service**
-  - Added the database indexes that every cart query depends on, which were missing entirely ([#412](https://github.com/acme/checkout-service/pull/412))
-  - Closed an authorization gap that let any store manager delete another store's orders ([#418](https://github.com/acme/checkout-service/pull/418))
-  - Reworking refund expiry so a lapsed refund can be reissued rather than recreated ([#421](https://github.com/acme/checkout-service/pull/421), open)
-  - Reviewed: bulk coupon import ([#419](https://github.com/acme/checkout-service/pull/419)), the retry banner on failed payments ([#415](https://github.com/acme/checkout-service/pull/415))
-  - Filed: order totals drift by a cent on multi-currency carts ([#409](https://github.com/acme/checkout-service/issues/409))
+  - Added the missing database indexes that cart queries depend on ([#412](https://github.com/acme/checkout-service/pull/412))
+  - Fixed an authorization gap in order deletion ([#418](https://github.com/acme/checkout-service/pull/418))
+    - Any store manager could delete another store's orders
+  - Rewrote payment retries ([#424](https://github.com/acme/checkout-service/pull/424))
+    - Moved retries from the browser to a background job
+    - Spaced attempts on a backoff schedule
+    - Added a banner showing when the next attempt will run
+    - Logged each failed attempt with the provider's error code
+  - Reworking refund expiry so a lapsed refund can be reissued ([#421](https://github.com/acme/checkout-service/pull/421), open)
+  - Merged
+    - Bulk coupon import ([#419](https://github.com/acme/checkout-service/pull/419))
+    - Currency rounding in order totals ([#415](https://github.com/acme/checkout-service/pull/415))
+  - Reviewed
+    - Async export of order history ([#420](https://github.com/acme/checkout-service/pull/420))
+  - Filed Issues
+    - Order totals drift by a cent on multi-currency carts ([#409](https://github.com/acme/checkout-service/issues/409))
 - **report-builder**
-  - Rebuilt template loading so templates compile at boot and load by name from a mounted directory, instead of shipping inside the app
+  - Rebuilt template loading so templates compile at boot and load by name from a mounted directory
   - Split the template SDK into its own package, released on the same version line as the app
   - Rewrote the reference pages as a field tree instead of tables
 - **design-system**
-  - Stacked number radio fields vertically when there are few options, so the second choice is no longer pushed to the right edge ([#119](https://github.com/acme/design-system/pull/119))
+  - Stacked number radio fields vertically when there are few options ([#119](https://github.com/acme/design-system/pull/119))
 - **docs-site**
-  - Discussed: heading capitalization, the deprecation banner wording, and whether the changelog belongs in the sidebar
+  - Discussed
+    - Heading capitalization
+    - The deprecation banner wording
+    - Whether the changelog belongs in the sidebar
 - **sdk-python**
-  - Reviewed: the async client's timeout defaults ([#77](https://github.com/acme/sdk-python/pull/77))
+  - Reviewed
+    - The async client's timeout defaults ([#77](https://github.com/acme/sdk-python/pull/77))
 ```
 
-In that example, `design-system` also had an issue reporting the right-justified radio group, filed and closed inside the same window. It has no `Filed:` bullet, because the fix above it already covers that work.
+In that example, `design-system` also had an issue reporting the right-justified radio group, filed and closed inside the same window. It has no `Filed Issues` bullet, because the item above already covers that work.

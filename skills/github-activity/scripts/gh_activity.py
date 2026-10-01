@@ -10,6 +10,7 @@ Usage:
   gh_activity.py prs [repos ...]              # PRs you authored
   gh_activity.py reviews [repos ...]          # PRs you reviewed (authored by others)
   gh_activity.py issues [repos ...]           # issues you opened
+  gh_activity.py merged [repos ...]           # PRs you merged (authored by others)
   gh_activity.py events [repos ...]           # raw event feed (pushes, comments, branches, ...)
 
 Common options (valid on every subcommand):
@@ -25,10 +26,15 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import re
 import subprocess
 import sys
 
-COMMANDS = ("summary", "commits", "prs", "reviews", "issues", "events")
+from typing import Any
+
+COMMANDS = ("summary", "commits", "prs", "reviews", "issues", "merged", "events")
+SEARCH_LIMIT = 1000  # the most results GitHub's search API returns for one query
+MERGE_COMMIT = re.compile(r"Merge pull request #(\d+) ")
 WEEKDAYS = ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
 
 
@@ -42,6 +48,13 @@ def gh(*args: str) -> str:
 def gh_json(*args: str):
     out = gh(*args).strip()
     return json.loads(out) if out else []
+
+
+def gh_search(*args: str) -> list:
+    rows = gh_json("search", *args, "--limit", str(SEARCH_LIMIT))
+    if len(rows) >= SEARCH_LIMIT:
+        print(f"warning: gh search {args[0]} hit the {SEARCH_LIMIT}-result cap; narrow --since or the scope", file=sys.stderr)
+    return rows
 
 
 def parse_concat_json(text: str) -> list:
@@ -94,9 +107,9 @@ def scope_args(owner: str | None, repos: list[str]) -> list[str]:
 
 
 def fetch_commits(user: str, since: dt.date, owner: str | None, repos: list[str]) -> list[dict]:
-    rows = gh_json(
-        "search", "commits", "--author", user, "--author-date", f">={since}",
-        "--limit", "100", "--json", "repository,commit,sha", *scope_args(owner, repos),
+    rows = gh_search(
+        "commits", "--author", user, "--author-date", f">={since}",
+        "--json", "repository,commit,sha", *scope_args(owner, repos),
     )
     commits = [
         {
@@ -111,8 +124,8 @@ def fetch_commits(user: str, since: dt.date, owner: str | None, repos: list[str]
 
 
 def _fetch_pr_like(kind: str, filter_flag: str, user: str, since: dt.date, owner: str | None, repos: list[str]) -> list[dict]:
-    rows = gh_json(
-        "search", kind, filter_flag, user, "--updated", f">={since}", "--limit", "100",
+    rows = gh_search(
+        kind, filter_flag, user, "--updated", f">={since}",
         "--json", "repository,number,title,state,author,updatedAt,url", *scope_args(owner, repos),
     )
     items = [
@@ -168,7 +181,7 @@ def describe_event(event: dict) -> str:
     return kind
 
 
-def fetch_events(user: str, since: dt.date, owner: str | None, repos: list[str]) -> list[dict]:
+def fetch_raw_events(user: str, since: dt.date, owner: str | None, repos: list[str]) -> list[dict]:
     raw = gh("api", f"users/{user}/events?per_page=100", "--paginate")
     wanted = {qualify(owner, r).lower() for r in repos} if repos else None
     prefix = owner.lower() + "/" if owner else None
@@ -181,16 +194,69 @@ def fetch_events(user: str, since: dt.date, owner: str | None, repos: list[str])
             continue
         if event["created_at"][:10] < since.isoformat():
             continue
-        events.append(
+        events.append(event)
+    return sorted(events, key=lambda e: e["created_at"], reverse=True)
+
+
+def summarize_events(raw_events: list[dict]) -> list[dict]:
+    return [
+        {
+            "date": event["created_at"][:10],
+            "time": event["created_at"],
+            "repo": event["repo"]["name"],
+            "type": event["type"],
+            "detail": describe_event(event),
+        }
+        for event in raw_events
+    ]
+
+
+def fetch_events(user: str, since: dt.date, owner: str | None, repos: list[str]) -> list[dict]:
+    return summarize_events(fetch_raw_events(user, since, owner, repos))
+
+
+def merged_prs(user: str, raw_events: list[dict], commits: list[dict]) -> list[dict]:
+    """PRs by others that `user` merged, each looked up for its title, author, and merger.
+
+    Candidates come from the user's merge commits (reliable, but miss squash and rebase merges)
+    and from merge events (cover those, but the events feed drops some).
+    """
+    candidates = []
+    for commit in commits:
+        match = MERGE_COMMIT.match(commit["message"])
+        if match:
+            candidates.append((commit["repo"], int(match.group(1))))
+    for event in raw_events:
+        payload = event.get("payload") or {}
+        if event["type"] != "PullRequestEvent" or payload.get("action") not in ("merged", "closed"):
+            continue
+        number = (payload.get("pull_request") or {}).get("number")
+        if number is not None:
+            candidates.append((event["repo"]["name"], number))
+    candidates = list(dict.fromkeys(candidates))
+    items = []
+    for repo, number in candidates:
+        pr: Any = gh_json("api", f"repos/{repo}/pulls/{number}")
+        author = (pr.get("user") or {}).get("login", "")
+        merger = (pr.get("merged_by") or {}).get("login", "")
+        if not pr.get("merged") or merger != user or author == user:
+            continue
+        items.append(
             {
-                "date": event["created_at"][:10],
-                "time": event["created_at"],
-                "repo": name,
-                "type": event["type"],
-                "detail": describe_event(event),
+                "repo": repo,
+                "number": number,
+                "title": pr["title"],
+                "state": "MERGED",
+                "author": author,
+                "updated": pr["merged_at"][:10],
+                "url": pr["html_url"],
             }
         )
-    return sorted(events, key=lambda e: e["time"], reverse=True)
+    return sorted(items, key=lambda i: i["updated"], reverse=True)
+
+
+def fetch_merged(user: str, since: dt.date, owner: str | None, repos: list[str]) -> list[dict]:
+    return merged_prs(user, fetch_raw_events(user, since, owner, repos), fetch_commits(user, since, owner, repos))
 
 
 # --- output -----------------------------------------------------------------
@@ -226,6 +292,7 @@ def print_summary(user: str, since: dt.date, owner: str | None, data: dict) -> N
         ("commits", "Commits", lambda c: f"{c['date']}  {c['sha']}  {c['message']}"),
         ("prs", "PRs authored", lambda p: f"#{p['number']}  [{p['state']}]  {p['title']}"),
         ("reviews", "PRs reviewed", lambda p: f"#{p['number']}  [{p['state']}]  {p['title']}  by {p['author']}"),
+        ("merged", "PRs merged", lambda p: f"#{p['number']}  {p['title']}  by {p['author']}"),
         ("issues", "Issues opened", lambda i: f"#{i['number']}  [{i['state']}]  {i['title']}"),
         ("comments", "Comments", lambda e: f"{e['date']}  {e['detail']}"),
     ]
@@ -268,6 +335,7 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("prs", parents=[common], help="pull requests you authored")
     sub.add_parser("reviews", parents=[common], help="pull requests you reviewed (authored by others)")
     sub.add_parser("issues", parents=[common], help="issues you opened")
+    sub.add_parser("merged", parents=[common], help="pull requests you merged (authored by others)")
     sub.add_parser("events", parents=[common], help="raw event feed (pushes, comments, branches, ...)")
     return parser
 
@@ -283,15 +351,15 @@ def main(argv: list[str] | None = None) -> None:
     since = parse_since(args.since)
 
     if args.command == "summary":
+        raw_events = fetch_raw_events(user, since, args.owner, args.repos)
+        commits = fetch_commits(user, since, args.owner, args.repos)
         data = {
-            "commits": fetch_commits(user, since, args.owner, args.repos),
+            "commits": commits,
             "prs": fetch_prs(user, since, args.owner, args.repos),
             "reviews": fetch_reviews(user, since, args.owner, args.repos),
             "issues": fetch_issues(user, since, args.owner, args.repos),
-            "comments": [
-                e for e in fetch_events(user, since, args.owner, args.repos)
-                if e["type"] == "IssueCommentEvent"
-            ],
+            "merged": merged_prs(user, raw_events, commits),
+            "comments": [e for e in summarize_events(raw_events) if e["type"] == "IssueCommentEvent"],
         }
         if args.json:
             print(json.dumps({"user": user, "owner": args.owner, "since": since.isoformat(), **data}, indent=2))
@@ -304,6 +372,7 @@ def main(argv: list[str] | None = None) -> None:
         "prs": (fetch_prs, print_pr_like),
         "reviews": (fetch_reviews, print_pr_like),
         "issues": (fetch_issues, print_pr_like),
+        "merged": (fetch_merged, print_pr_like),
         "events": (fetch_events, print_events),
     }
     fetch, show = fetchers[args.command]
