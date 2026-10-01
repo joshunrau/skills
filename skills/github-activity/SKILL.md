@@ -1,5 +1,5 @@
 ---
-name: gh-activity
+name: github-activity
 description: Summarize your GitHub activity (commits, PRs authored, PRs reviewed, issues, comments) across an org or specific repos since a given date. Useful for standup notes, weekly recaps, or answering "what did I work on?".
 disable-model-invocation: true
 ---
