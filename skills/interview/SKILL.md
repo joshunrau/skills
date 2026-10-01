@@ -14,7 +14,7 @@ Before the first question, explore the environment, then calibrate the session i
   3. How deep to grill me.
   4. What the deliverable is when we're done.
 - Keep each item concise and focused
-- 
+
 After calibration, ask the questions one at a time, waiting for feedback on each question before continuing. Asking multiple questions at once is bewildering.
 
 If a _fact_ can be found by exploring the environment (filesystem, tools, etc.), look it up rather than asking me. The _decisions_, though, are mine — put each one to me and wait for my answer.
