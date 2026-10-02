@@ -5,51 +5,64 @@ description: Draft or edit a software specification (SPEC.md) for a platform or 
 
 # Writing Software Specs
 
-A spec is the top-level source of truth for a platform or feature before it is implemented. It establishes decided foundations for an implementer, not every implementation detail. 
+A spec is the top-level source of truth for a platform or feature before it is implemented. It establishes decided foundations for an implementer, not every implementation detail.
 
 ## Structure
 
 Build from `references/skeleton.md`. Sections run from most to least foundational. A lower section serves the sections above it and never contradicts them.
 
+## Missing Decisions
+
+Ask the user about every missing decision as soon as it surfaces. Never settle one by assumption.
+
+If the user defers a decision, record it by what already exists:
+
+- **Blocking Decision:** text already in the spec conflicts with or depends on the decision. Record it with the sections it affects. Existing text stays as it is. The spec is then frozen: the only permitted change is resolving a Blocking Decisions entry, until none remain.
+- **Open Decision:** no text in the spec depends on the decision yet. Record it with the sections it would affect. Work continues, but text that would depend on the decision is not written until it is resolved.
+
+Both sections hold only decisions that shape rules or sections, never edge cases.
+
 ## Axioms
 
-An axiom is one sentence. It traces to a core requirement in Section 1. It states a result that at least two different mechanisms could satisfy. It carries no exceptions and names no specific entity.
+An axiom is one sentence that ends by citing the core requirement it serves, such as "(R1)". It states a result that at least two different mechanisms could satisfy. It carries no exceptions.
 
-- Mechanism, rejected: "The editor saves every keystroke to the server within one second."
-- Result, accepted: "A user never loses text they have typed." 
+- Mechanism, rejected: "The editor saves every keystroke to the server within one second (R1)."
+- Result, accepted: "A user never loses text they have typed (R1)."
 
-When adding an axiom, ask of each existing one: does fully honoring one ever require limiting the other? If so, resolve it with a boundary clause inside one sentence: "Changes to data are attributable and reconstructable while that data exists."
+An axiom may carry a boundary clause, which limits its scope by a general condition that applies uniformly: "while that data exists". An exception carves out a specific case, actor or situation: "except for administrators", "unless the device is offline". Boundaries are allowed. Exceptions are not.
 
-An axiom that seems to need an exception has a missing decision behind it. Determine the missing decision and definitively resolve it with the user.
+When adding an axiom, check it against each existing axiom: does fully honoring either one ever require limiting the other? If so, ask the user which promise yields, and add a boundary clause to that axiom. For example, "Changes to data are attributable and reconstructable" conflicts with "A user can permanently delete their data." If the first yields, it becomes "Changes to data are attributable and reconstructable while that data exists."
+
+An axiom that seems to need an exception has a missing decision behind it. Find that decision and ask the user.
 
 ## Detail
 
 - A section is never more precise than the decisions it depends on.
-- Precision arrives early only for user-visible behavior that is costly to change, or for a structural technical decision.
+- The spec is exact only about user-visible behavior that is costly to change and about structural technical decisions. Everything else leaves room for the implementer.
 - Each structural technical decision states the behavior or constraint it serves and the trade-off it accepts.
-- A section that keeps gaining special cases about another section signals a missing decision upstream. Find that decision before writing more.
-- A requested detail that depends on an open decision stays out of the spec. Its parent decision goes to Open Questions.
+- A section that keeps gaining special cases about another section signals a missing decision upstream. Find that decision and ask the user before writing more.
+- A requested detail that depends on a missing or open decision waits until the user settles that decision.
 
 ## Consistency
 
-- Any internal contradiction is a defect. Silence is acceptable. When two rules answer the same case differently, fix the wording if existing decisions settle it. Otherwise add an open question that names both rules.
+- Any internal contradiction is a defect. Silence is acceptable. When two rules answer the same case differently, fix the wording if existing decisions settle it. Otherwise ask the user which rule holds.
 - One term per concept, one concept per term. A rename replaces every occurrence in the same edit.
 - Defined terms are the dependency index. When a decision changes, find every use of its terms and re-read each rule that uses them.
-- The spec states current decisions only. A resolved question leaves Open Questions and its answer enters the body. History lives in version control.
+- The spec states current decisions only. A resolved entry leaves Blocking Decisions or Open Decisions and its answer enters the body. History lives in version control.
 
-## After Each Revision That Changes a Decision
+## After Each Revision That Changes a Decision or a Term
 
 Spawn a fresh Sonnet subagent. Give it only the spec and `references/checklist.md`, never the conversation, with this prompt:
 
-> Report only violations of the checklist. Give the location of each. The spec may be incomplete: missing rules or concepts are not a problem. Reporting nothing is the expected result for a sound spec.
+> Report only violations of the checklist. Give the location of each. The spec may not yet cover every topic: an absent topic is not a violation, but text that is present must satisfy the checklist. A conflict already cited by a Blocking Decisions entry is not a violation. Reporting nothing is the expected result for a sound spec.
 
-Apply each finding or reject it with a reason. The revision is complete when every finding has one outcome.
+Apply each finding or reject it. Tell the user each rejected finding and the reason. The revision is complete when every finding has one outcome.
 
-Wording-only edits skip this.
+Wording-only edits skip this. Renaming a defined term is not wording-only.
 
 ## Format and Style
 
-- Section heading: `### **1\. {Section}.**`
+- Section heading: `### **1. {Section}.**`
 - Subsection heading: `**1.1 {Subsection}.**` followed by its text on the same line.
 - Title case for headings and defined terms.
 - Prose by default. Bullets only for genuine enumerations, or a few sub-rules under one clause. No tables.

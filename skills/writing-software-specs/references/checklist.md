@@ -8,7 +8,8 @@ Report each violation with its location.
 - A capitalized domain term in the body that is not defined.
 - A concept with two names, or a name used for two concepts.
 - A cross-reference to a section that does not exist or no longer supports the claim it is cited for.
-- An open question that names no blocked text, or names text that no longer exists or is no longer blocked.
+- A Blocking Decisions entry that cites no section, or cites a section that no longer exists or no longer depends on the decision.
+- An Open Decisions entry that cites no section, or that text in the spec already depends on.
 - An em dash, a table, or an RFC 2119 keyword.
 
 ## Rules
@@ -21,12 +22,13 @@ Report each violation with its location.
 
 ## Axioms
 
-- An axiom longer than one sentence, carrying an exception, naming a specific entity, or stating a mechanism.
+- An axiom longer than one sentence or stating a mechanism.
+- An axiom carrying an exception: a carve-out for a specific case, actor or situation. A boundary clause that limits scope by a general, uniform condition is allowed.
 - Two axioms where fully honoring one requires limiting the other, with no boundary clause resolving it.
-- An axiom that traces to no core requirement.
+- An axiom that cites no core requirement, or cites one that does not exist.
 
 ## Proportion
 
 - A section more precise than the decisions it depends on.
 - A section accumulating special cases about another section.
-- An edge case in Open Questions.
+- An edge case in Blocking Decisions or Open Decisions.
