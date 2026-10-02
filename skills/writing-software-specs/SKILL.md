@@ -25,8 +25,8 @@ An axiom that seems to need an exception has a missing decision behind it. Deter
 ## Detail
 
 - A section is never more precise than the decisions it depends on.
-- Precision arrives early only for user-visible behavior that is costly to change, or for a foundational decision that other parts build on and that is costly to reverse.
-- Each foundational technical decision states the behavior or constraint it serves and the trade-off it accepts.
+- Precision arrives early only for user-visible behavior that is costly to change, or for a structural technical decision.
+- Each structural technical decision states the behavior or constraint it serves and the trade-off it accepts.
 - A section that keeps gaining special cases about another section signals a missing decision upstream. Find that decision before writing more.
 - A requested detail that depends on an open decision stays out of the spec. Its parent decision goes to Open Questions.
 

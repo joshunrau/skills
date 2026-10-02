@@ -24,9 +24,9 @@ One bullet per axiom, numbered A1, A2 and onward, each a bold short name followe
 
 User-facing behavior for one area of the domain. Repeat as needed, ordered so that each area depends only on areas before it.
 
-### **N. Foundational Technical Decisions.**
+### **N. Structural Technical Decisions.**
 
-Only decisions that other parts build on and that are costly to reverse. Each states its choice, the behavior or constraint it serves, and the trade-off it accepts.
+Only decisions the implementation builds on and that are costly to reverse. Each states its choice, the behavior or constraint it serves, and the trade-off it accepts.
 
 ### **N. Operational Policy.**
 

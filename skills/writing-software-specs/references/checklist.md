@@ -16,7 +16,7 @@ Report each violation with its location.
 - A rule whose wording admits two readings.
 - Two rules that give different answers for the same case.
 - A broad promise with no stated boundary.
-- A technical decision without its justification or trade-off.
+- A structural technical decision without its justification or trade-off.
 - A sentence that changes neither what is built nor why a rule exists.
 
 ## Axioms
