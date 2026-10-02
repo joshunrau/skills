@@ -13,14 +13,14 @@ Build from `references/skeleton.md`. Sections run from most to least foundationa
 
 ## Missing Decisions
 
+A decision is missing when text being written, or already written, cannot be stated exactly without it and no existing decision settles it. A topic the spec does not yet address is not a missing decision.
+
 Ask the user about every missing decision as soon as it surfaces. Never settle one by assumption.
 
 If the user defers a decision, record it by what already exists:
 
-- **Blocking Decision:** text already in the spec conflicts with or depends on the decision. Record it with the sections it affects. Existing text stays as it is. The spec is then frozen: the only permitted change is resolving a Blocking Decisions entry, until none remain.
-- **Open Decision:** no text in the spec depends on the decision yet. Record it with the sections it would affect. Work continues, but text that would depend on the decision is not written until it is resolved.
-
-Both sections hold only decisions that shape rules or sections, never edge cases.
+- **Blocking Decision:** text already in the spec depends on the decision or presumes an answer to it. Record it with the sections it affects. Existing text stays as it is. Until no entries remain, the spec takes no new rules or sections. The permitted changes are resolving entries, editing Blocking Decisions and Open Decisions, applying checklist findings, and wording-only edits.
+- **Open Decision:** no text in the spec depends on the decision yet. Record it with the sections it would affect. Work continues, but text that would depend on the decision is not written until it is resolved. Text found to depend on an Open Decision is removed.
 
 ## Axioms
 
@@ -45,9 +45,10 @@ An axiom that seems to need an exception has a missing decision behind it. Find 
 
 ## Consistency
 
-- Any internal contradiction is a defect. Silence is acceptable. When two rules answer the same case differently, fix the wording if existing decisions settle it. Otherwise ask the user which rule holds.
+- Any internal contradiction is a defect. Silence is acceptable. When two rules answer the same case differently, fix the wording if existing decisions settle it. Otherwise ask the user which rule holds. If the user defers, record it as a Blocking Decision.
 - One term per concept, one concept per term. A rename replaces every occurrence in the same edit.
-- Defined terms are the dependency index. When a decision changes, find every use of its terms and re-read each rule that uses them.
+- A term enters Definitions in the same edit that first uses it in the body.
+- Defined terms are the dependency index. When a decision changes, find every use of each defined term it introduces or relies on, and re-read each rule that uses them.
 - The spec states current decisions only. A resolved entry leaves Blocking Decisions or Open Decisions and its answer enters the body. History lives in version control.
 
 ## After Each Revision That Changes a Decision or a Term
