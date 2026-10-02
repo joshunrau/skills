@@ -20,7 +20,7 @@ An axiom is one sentence. It traces to a core requirement in Section 1. It state
 
 When adding an axiom, ask of each existing one: does fully honoring one ever require limiting the other? If so, resolve it with a boundary clause inside one sentence: "Changes to data are attributable and reconstructable while that data exists."
 
-An axiom that seems to need an exception has a missing decision behind it. Write the detail in the body and raise the missing decision in Open Questions.
+An axiom that seems to need an exception has a missing decision behind it. Determine the missing decision and definitively resolve it with the user.
 
 ## Detail
 
