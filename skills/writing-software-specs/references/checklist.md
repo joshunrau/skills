@@ -30,3 +30,6 @@ Report each violation with its location.
 
 - A section more precise than the decisions it depends on.
 - A section accumulating special cases about another section.
+
+## Deferred
+- An Deferred entry that does not state what keeps it possible, or that text in the spec prevents.
