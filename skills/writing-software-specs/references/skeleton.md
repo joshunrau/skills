@@ -28,6 +28,10 @@ User-facing behavior for one area of the domain. Repeat as needed, ordered so th
 
 Only decisions the implementation builds on and that are costly to reverse. Each states its choice, the behavior or constraint it serves, and the trade-off it accepts.
 
+### **N. Deferred.** 
+
+Capabilities the user has explicitly chosen to leave out for now but to keep possible. Each entry states the capability and what in the spec keeps it  possible, and nothing in the spec may prevent adding it.
+
 ### **N. Blocking Decisions.**
 
 Deferred decisions that text already in the spec depends on or presumes an answer to, most blocking first. Each entry is the question, then the sections it affects. While any entry exists, the spec takes no new rules or sections.
