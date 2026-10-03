@@ -53,7 +53,7 @@ An axiom that seems to need an exception has a missing decision behind it. Find 
 
 ## After Each Revision That Changes a Decision or a Term
 
-Spawn a fresh Sonnet subagent. Give it only the spec and `references/checklist.md`, never the conversation, with this prompt:
+Spawn a fresh Opus subagent. Give it only the spec and `references/checklist.md`, never the conversation, with this prompt:
 
 > Report only violations of the checklist. Give the location of each. The spec may not yet cover every topic: an absent topic is not a violation, but text that is present must satisfy the checklist. A conflict already cited by a Blocking Decisions entry is not a violation. Reporting nothing is the expected result for a sound spec.
 
