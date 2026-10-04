@@ -71,3 +71,5 @@ Wording-only edits skip this. Renaming a defined term is not wording-only.
 - Active voice, one idea per sentence. Commas, colons and periods in place of em dashes.
 - Earn every detail: keep a sentence only if it changes what the implementer builds or their understanding of why a rule exists.
 - Cross-reference another section only for a real dependency.
+- Choose the exact word over the approximate one: "within five seconds", not "quickly"; "rounded to the nearest cent", not "rounded". Use a technical term when it says something more precisely than plain words and the implementer would know it without looking it up: "case-insensitive", not "ignoring capital letters".
+- Rules are written so that an engineer can reason about edge cases from the words alone.
