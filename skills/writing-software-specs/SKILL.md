@@ -145,3 +145,6 @@ Each pair shows text the checklist rejects and the text that replaces it. All ar
   - **Cancel.** The job is paused or deleted: no run is queued.
   - **Wait.** Otherwise: the job waits for its next scheduled time."
 
+**A non-foundational implementation detail.** The behavior is exact. How the implementer achieves it is theirs.
+- Rejected: "Queued runs live in a `runs` table with an index on `(jobId, scheduledAt)`. A `pollRuns` worker queries it every 500 ms and claims a run with `SELECT ... FOR UPDATE SKIP LOCKED`."
+- Accepted: "A queued run starts within one second of its scheduled time. Two workers never start the same run."
