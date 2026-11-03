@@ -100,3 +100,48 @@ What is not written:
 - A closure clause: a clause whose only content is that nothing beyond the rule happens or exists, such as "and nothing else" or "and no other". A rule is complete as written. A clause that gives everything outside the rule an outcome, such as "any other value is rejected", is a rule and stays. A lead sentence that states a set is closed, such as "a job is in exactly one of the following states", is part of the rule and stays.
 - An example of a rule that is already exact in words. An example appears only for a syntax or a format, where it shows the exact shape.
 - A citation to a later section. A citation points backward only, as a bare section number in parentheses at the end of the clause that relies on it. A sentence that relies on a later section carries no citation. A core requirement is cited by axioms and nowhere else.
+
+## Anti-Patterns
+
+Each pair shows text the checklist rejects and the text that replaces it. All are from a fictional spec for a job scheduler with an HTTP API: a job has a schedule, each scheduled time starts a run, and an API key owns the jobs it creates.
+
+**Rationale.**
+- Rejected: "A failed run is retried at most three times, so that a failing job cannot hold a worker indefinitely. This serves R2."
+- Accepted: "A failed run is retried at most three times."
+
+**Restating an axiom.** The spec has axiom A3: "Every refused request carries the reason for its refusal (R4)."
+- Rejected: "The handler loads the job and compares its `ownerKeyId` with the requesting key. A mismatch is refused with status 403, and the response body explains in plain language that the job was not found (A3)."
+- Accepted: "The handler loads the job and compares its `ownerKeyId` with the requesting key. A mismatch is refused with status 403."
+
+**A rule written twice.** Section 4.2 says the handler requires the owner key.
+- Rejected, in 7.3: The handler cancels the job's queued runs. It requires the owner key (4.2)."
+- Accepted, in 7.3: The handler (4.2) cancels the job's queued runs."
+
+**A derived consequence.**
+- Rejected: "A job has exactly one schedule, and a schedule belongs to exactly one job. Two jobs therefore never share a schedule."
+- Accepted: "A job has exactly one schedule, and a schedule belongs to exactly one job."
+
+**A closure clause.**
+- Rejected: "A job is paused by its owner key, and nothing else pauses a job."
+- Accepted: "A job is paused by its owner key."
+- Stays, because it gives the complement an outcome: "A request with any other method is refused with status 405."
+
+**A forward citation.** Retries are defined in 6.2.
+- Rejected, in 5.1: "A run ends in one of three states, `succeeded`, `failed` or `cancelled`, and a failed run may be retried (6.2)."
+- Accepted, in 5.1: "A run ends in one of three states: `succeeded`, `failed` or `cancelled`."
+
+**A quantifier over an unnamed set.**
+- Rejected: "Everything a request carries is validated before it is acted on."
+- Accepted: "Every request body is parsed with the JSON Schema of its endpoint before the handler runs. A body the schema rejects is refused with status 400."
+
+**The system as subject.**
+- Rejected: "The scheduler checks the schedule expression. The scheduler rejects an expression with a field out of range."
+- Accepted: "A `schedule` with a field out of its range is refused with status 400."
+
+**A fixed set of cases in prose.**
+- Rejected: "After a run fails, a new run is queued when the job's retry limit is not reached, no run is queued when the job is paused or deleted, and otherwise the job waits for its next scheduled time."
+- Accepted: "After a run fails, one of three things follows:
+  - **Retry.** The job's `retryLimit` is not reached: a new run is queued.
+  - **Cancel.** The job is paused or deleted: no run is queued.
+  - **Wait.** Otherwise: the job waits for its next scheduled time."
+
