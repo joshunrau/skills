@@ -9,11 +9,11 @@ A spec is the top-level source of truth for a platform or feature before it is i
 
 ## Reader
 
-An implementer: a coding agent, or a software engineer.
+An experienced human software engineer who reads the whole document and builds from it. "The implementer" below means this reader.
 
 ## Structure
 
-Build from `references/skeleton.md`. Sections run from most to least foundational. A lower section serves the sections above it and never contradicts them.
+Build from `references/skeleton.md`. Sections run from most to least foundational. A lower section serves the sections above it and never contradicts them. The body is every section except Definitions.
 
 ## Missing Decisions
 
@@ -50,7 +50,7 @@ An axiom that seems to need an exception has a missing decision behind it. Find 
 
 - Any internal contradiction is a defect. Silence is acceptable. When two rules answer the same case differently, fix the wording if existing decisions settle it. Otherwise ask the user which rule holds. If the user defers, record it as a Blocking Decision.
 - One term per concept, one concept per term. A rename replaces every occurrence in the same edit.
-- A term enters Definitions in the same edit that first uses it in the body.
+- A term is defined in the same edit that first uses it: inline if one top-level section uses it, in Definitions if more than one does. When an inline term is first used in a second top-level section, the same edit moves its definition to Definitions.
 - Defined terms are the dependency index. When a decision changes, find every use of each defined term it introduces or relies on, and re-read each rule that uses them.
 - The spec states current decisions only. A resolved entry leaves Blocking Decisions or Open Decisions and its answer enters the body. History lives in version control.
 
@@ -66,13 +66,37 @@ Wording-only edits skip this. Renaming a defined term is not wording-only.
 
 ## Format and Style
 
+Headings and emphasis:
+
 - Section heading: `### **1. {Section}.**`
-- Subsection heading: `**1.1 {Subsection}.**` followed by its text on the same line.
+- Subsection heading: `**1.1 {Subsection}.**` followed by its text on the same line. A subsection that needs them has sub-subsections in the same form: `**1.1.1 {Sub-subsection}.**`
 - Title case for headings and defined terms.
-- Prose by default. Bullets only for genuine enumerations, or a few sub-rules under one clause. No tables.
+- Bold marks a term at its definition and the label of a list item. Italics mark a value from a set the spec enumerates that has no literal form, such as a status or a mode. Code spans mark literal text: anything that appears exactly as written in code, a file, a command line or a message the software sends or receives, such as an identifier, a flag, a header or a literal value. A value that is both enumerated and literal takes a code span. No other emphasis.
+- A term used in more than one top-level section is defined in Definitions. A term used in one top-level section only is defined inline, in bold, at its first use, and is not in Definitions. An inline definition follows the same rules as a Definitions entry.
+
+Sentences and paragraphs:
+
 - Short declarative sentences in the present tense that state behavior as fact: "is", not "should". No RFC 2119 keywords.
-- Active voice, one idea per sentence. Commas, colons and periods in place of em dashes.
+- One idea per sentence. Commas, colons and periods in place of em dashes.
 - Earn every detail: keep a sentence only if it changes what the implementer builds or their understanding of why a rule exists.
-- Cross-reference another section only for a real dependency.
+- The subject of a sentence is the thing the rule governs, such as an input, a stored item, a message or an actor, not the system being specified. The passive is allowed, and is the usual form when the actor is the system. The system is the subject only of a sentence about the system as a whole.
+- A sentence names the set it governs. A quantifier with no noun ("everything", "anything", "whatever") or a clause standing in for a set ("what the input contains", "whichever applies") is a defect unless that sentence or the one before it enumerates the set.
+- A paragraph holds one rule in at most six sentences. A case list that follows a rule's lead sentence does not count toward the six.
 - Choose the exact word over the approximate one: "within five seconds", not "quickly"; "rounded to the nearest cent", not "rounded".
 - Use a technical term when it says something more precisely than plain words and the implementer would know it without looking it up: "case-insensitive", not "ignoring capital letters"; "every read returns the most recently saved value", not "reads are linearizable".
+
+Lists:
+
+- Prose by default. No tables.
+- A rule with a fixed set of cases is a lead sentence that names the set, then one list item per case: a bold label, the condition, and the outcome last. Two cases are still a list.
+- Any other list is a genuine enumeration, or a few sub-rules under one clause.
+
+What is not written:
+
+- Rationale. No "because", "so that", "therefore", "this serves" or trade-off anywhere. In a behavior section or a Structural Technical Decision, a sentence stays only if it changes what the implementer builds.
+- A rule a second time. A rule is written once. A sentence elsewhere that relies on it carries the section number, never the rule's content.
+- A restatement of an axiom. No sentence in the body restates an axiom or cites one. A rule that chooses how an axiom is met is a decision and is written. A property an axiom gives every instance of something, such as every error message, is not repeated in the rule for one instance. A message whose content is a decision of its own, such as an error code a client matches on, is written once, where the rule that produces it is defined.
+- A consequence that follows from stated rules.
+- A closure clause: a clause whose only content is that nothing beyond the rule happens or exists, such as "and nothing else" or "and no other". A rule is complete as written. A clause that gives everything outside the rule an outcome, such as "any other value is rejected", is a rule and stays. A lead sentence that states a set is closed, such as "a job is in exactly one of the following states", is part of the rule and stays.
+- An example of a rule that is already exact in words. An example appears only for a syntax or a format, where it shows the exact shape.
+- A citation to a later section. A citation points backward only, as a bare section number in parentheses at the end of the clause that relies on it. A sentence that relies on a later section carries no citation. A core requirement is cited by axioms and nowhere else.

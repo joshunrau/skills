@@ -26,11 +26,11 @@ User-facing behavior for one area of the domain. Repeat as needed, ordered so th
 
 ### **N. Structural Technical Decisions.**
 
-Only decisions the implementation builds on and that are costly to reverse. Each states its choice, the behavior or constraint it serves, and the trade-off it accepts.
+Only decisions the implementation builds on and that are costly to reverse. Each states the decision and nothing else.
 
-### **N. Deferred.** 
+### **N. Deferred.**
 
-Capabilities the user has explicitly chosen to leave out for now but to keep possible. Each entry states the capability and what in the spec keeps it  possible, and nothing in the spec may prevent adding it.
+Capabilities the user has explicitly chosen to leave out for now but to keep possible. Each entry states the capability and what in the spec keeps it possible, and nothing in the spec may prevent adding it.
 
 ### **N. Blocking Decisions.**
 
