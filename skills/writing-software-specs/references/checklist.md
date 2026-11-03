@@ -40,7 +40,7 @@ Report each violation with its location. The body is every section except Defini
 - A rule written in two places.
 - A consequence that follows from rules already stated.
 - A closure clause: a clause whose only content is that nothing beyond the rule happens or exists ("and nothing else", "and no other"). Not a clause that gives everything outside the rule an outcome, and not a lead sentence stating that a set is closed.
-- A citation to a later section.
+- A bare citation to a later section. Not a sentence that says what the later section covers, such as "The authorization mechanism is described in 5.1."
 - A paragraph of more than six sentences, not counting a case list that follows its lead sentence.
 - A fixed set of cases written as prose rather than as a list with a bold label per case.
 - A quantifier with no noun ("everything", "anything", "whatever") or a clause standing in for a set, with no enumeration of the set in that sentence or the one before.

@@ -99,7 +99,7 @@ What is not written:
 - A consequence that follows from stated rules.
 - A closure clause: a clause whose only content is that nothing beyond the rule happens or exists, such as "and nothing else" or "and no other". A rule is complete as written. A clause that gives everything outside the rule an outcome, such as "any other value is rejected", is a rule and stays. A lead sentence that states a set is closed, such as "a job is in exactly one of the following states", is part of the rule and stays.
 - An example of a rule that is already exact in words. An example appears only for a syntax or a format, where it shows the exact shape.
-- A citation to a later section. A citation points backward only, as a bare section number in parentheses at the end of the clause that relies on it. A sentence that relies on a later section carries no citation. A core requirement is cited by axioms and nowhere else.
+- A bare citation to a later section. A citation points backward only, as a bare section number in parentheses at the end of the clause that relies on it. A sentence that relies on a later section carries no citation. A later section is referred to only by a sentence that says what it covers, such as "The authorization mechanism is described in 5.1." This should be used sparingly; avoid forward references as the default. A core requirement is cited by axioms and nowhere else.
 
 ## Anti-Patterns
 
@@ -129,6 +129,7 @@ Each pair shows text the checklist rejects and the text that replaces it. All ar
 **A forward citation.** Retries are defined in 6.2.
 - Rejected, in 5.1: "A run ends in one of three states, `succeeded`, `failed` or `cancelled`, and a failed run may be retried (6.2)."
 - Accepted, in 5.1: "A run ends in one of three states: `succeeded`, `failed` or `cancelled`."
+- Stays, because it says what the later section covers: "Retries are described in 6.2."
 
 **A quantifier over an unnamed set.**
 - Rejected: "Everything a request carries is validated before it is acted on."
