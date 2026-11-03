@@ -66,6 +66,16 @@ The following file documents the full application spec: `SPEC.md`
 - Instructions to read `SPEC.md` in full.
 - The brief: "Report: (a) anything that contradicts them spec, (b) regressions in terms of the spec. Quote the spec line for each finding. Under 2000 words."
 
+### Axis 3. Justified Complexity
+
+The Justified Complexity axis carries the **smell baseline** below:
+
+- **Workaround for a safe assertion.** A rewrite larger than the `as` or `!` it avoids, when the fact holds for every input the function admits. Lines, plus a reader checking a guard that cannot fire. AGENTS.md allows the assertion when no rewrite of similar size removes it.
+- **Defensive check inside trusted code.** Re-validation of data the system wrote or already validated at the boundary. A reader wondering which caller can violate it.
+- **Helper with one caller** whose body reads as well in place. A jump for the reader, and a name to keep true.
+- **Abstraction with one user.** A generic, parameter, option or interface with exactly one concrete use. The reader learns a general thing to understand a specific one.
+- **Code made barbarous by a rule.** Code whose shape exists to satisfy a guideline or a lint rule rather than the problem. Name the rule; the finding goes in that rule's group.
+
 ### 3. Aggregate
 
 Present the two reports under `## Standards` and `## Spec` headings, verbatim or lightly cleaned. Do **not** merge or rerank findings, because the two axes are deliberately separate (see _Why two axes_).
