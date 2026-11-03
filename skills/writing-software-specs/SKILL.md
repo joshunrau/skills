@@ -5,7 +5,11 @@ description: Draft or edit a software specification (SPEC.md) for a platform or 
 
 # Writing Software Specs
 
-A spec is the top-level source of truth for a platform or feature before it is implemented. It establishes decided foundations for an implementer, not every implementation detail.
+A spec is the top-level source of truth for a platform or feature before it is implemented. It establishes decided foundations for an implementer.
+
+## Reader
+
+An implementer: a coding agent, or a software engineer.
 
 ## Structure
 
@@ -38,8 +42,7 @@ An axiom that seems to need an exception has a missing decision behind it. Find 
 ## Detail
 
 - A section is never more precise than the decisions it depends on.
-- The spec is exact only about user-visible behavior that is costly to change and about structural technical decisions. Everything else leaves room for the implementer.
-- Each structural technical decision states the behavior or constraint it serves and the trade-off it accepts.
+- The spec is exact only about behavior that is costly to change and about structural technical decisions. Everything else leaves room for the implementer.
 - A section that keeps gaining special cases about another section signals a missing decision upstream. Find that decision and ask the user before writing more.
 - A requested detail that depends on a missing or open decision waits until the user settles that decision.
 
