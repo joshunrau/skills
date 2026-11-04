@@ -1,13 +1,12 @@
 # Integrity Checklist
 
-Report each violation with its location. The body is every section except Definitions.
+Report each violation with its location. The body is every section after Axioms except Blocking Decisions and Open Decisions. A behavior section is a body section other than Structural Technical Decisions and Deferred.
 
 ## Terms and References
 
-- A defined term that never appears in the body.
-- A capitalized domain term in the body that is not defined.
-- A term defined inline in one top-level section and used in another.
-- A term in Definitions used in only one top-level section.
+- A defined term used only in the sentence that defines it.
+- A term used in the body in a sense the spec gives it, before its definition or without one. Not a sentence that says what a later section covers.
+- A term defined twice, or defined outside the body.
 - A concept with two names, or a name used for two concepts.
 - A cross-reference to a section that does not exist or no longer supports the claim it is cited for.
 - A sentence that relies on a rule in an earlier section without that section's number, or a citation that is not a bare section number in parentheses at the end of the clause.

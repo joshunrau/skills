@@ -12,15 +12,11 @@ Each heading below is followed by what belongs there. Behavior sections take dom
 
 **1.4 Out of Scope.** What the software does not serve, as a list.
 
-### **2. Definitions.**
-
-One bullet per term: the bold term, then what it means. Definitions name concepts and contain no behavior and no technical choices. A category is defined by a criterion, not by listing its members.
-
-### **3. Axioms.**
+### **2. Axioms.**
 
 One bullet per axiom, numbered A1, A2 and onward, each a bold short name followed by one sentence that ends by citing its core requirement. Expect three to seven.
 
-### **4. {Behavior Area}.**
+### **3. {Behavior Area}.**
 
 User-facing behavior for one area of the domain. Repeat as needed, ordered so that each area depends only on areas before it.
 

@@ -13,7 +13,7 @@ An experienced human software engineer who reads the whole document and builds f
 
 ## Structure
 
-Build from `references/skeleton.md`. Sections run from most to least foundational. A lower section serves the sections above it and never contradicts them. The body is every section except Definitions.
+Build from `references/skeleton.md`. Sections run from most to least foundational. A lower section serves the sections above it and never contradicts them. The body is every section after Axioms except Blocking Decisions and Open Decisions.
 
 ## Missing Decisions
 
@@ -50,7 +50,8 @@ An axiom that seems to need an exception has a missing decision behind it. Find 
 
 - Any internal contradiction is a defect. Silence is acceptable. When two rules answer the same case differently, fix the wording if existing decisions settle it. Otherwise ask the user which rule holds. If the user defers, record it as a Blocking Decision.
 - One term per concept, one concept per term. A rename replaces every occurrence in the same edit.
-- A term is defined in the same edit that first uses it: inline if one top-level section uses it, in Definitions if more than one does. When an inline term is first used in a second top-level section, the same edit moves its definition to Definitions.
+- A term is defined once, in bold, at its first use in the body, in the same edit that first uses it. A sentence that only says what a later section covers may name a term before its definition and is not its first use. The defining sentence is a body sentence: when the rule that governs a thing also says what it is, that one sentence is the definition. A category is defined by a criterion, not by listing its members.
+- Overview and Axioms define no terms. A term used there is the one the body defines.
 - Defined terms are the dependency index. When a decision changes, find every use of each defined term it introduces or relies on, and re-read each rule that uses them.
 - The spec states current decisions only. A resolved entry leaves Blocking Decisions or Open Decisions and its answer enters the body. History lives in version control.
 
@@ -70,9 +71,8 @@ Headings and emphasis:
 
 - Section heading: `### **1. {Section}.**`
 - Subsection heading: `**1.1 {Subsection}.**` followed by its text on the same line. A subsection that needs them has sub-subsections in the same form: `**1.1.1 {Sub-subsection}.**`
-- Title case for headings and defined terms.
+- Title case for headings.
 - Bold marks a term at its definition and the label of a list item. Italics mark a value from a set the spec enumerates that has no literal form, such as a status or a mode. Code spans mark literal text: anything that appears exactly as written in code, a file, a command line or a message the software sends or receives, such as an identifier, a flag, a header or a literal value. A value that is both enumerated and literal takes a code span. No other emphasis.
-- A term used in more than one top-level section is defined in Definitions. A term used in one top-level section only is defined inline, in bold, at its first use, and is not in Definitions. An inline definition follows the same rules as a Definitions entry.
 
 Sentences and paragraphs:
 
@@ -106,40 +106,54 @@ What is not written:
 Each pair shows text the checklist rejects and the text that replaces it. All are from a fictional spec for a job scheduler with an HTTP API: a job has a schedule, each scheduled time starts a run, and an API key owns the jobs it creates.
 
 **Rationale.**
+
 - Rejected: "A failed run is retried at most three times, so that a failing job cannot hold a worker indefinitely. This serves R2."
 - Accepted: "A failed run is retried at most three times."
 
 **Restating an axiom.** The spec has axiom A3: "Every refused request carries the reason for its refusal (R4)."
+
 - Rejected: "The handler loads the job and compares its `ownerKeyId` with the requesting key. A mismatch is refused with status 403, and the response body explains in plain language that the job was not found (A3)."
 - Accepted: "The handler loads the job and compares its `ownerKeyId` with the requesting key. A mismatch is refused with status 403."
 
 **A rule written twice.** Section 4.2 says the handler requires the owner key.
-- Rejected, in 7.3: The handler cancels the job's queued runs. It requires the owner key (4.2)."
-- Accepted, in 7.3: The handler (4.2) cancels the job's queued runs."
+
+- Rejected, in 7.3: "The handler cancels the job's queued runs. It requires the owner key (4.2)."
+- Accepted, in 7.3: "The handler (4.2) cancels the job's queued runs."
+
+**A definition apart from its rule.**
+
+- Rejected: "An **owner key** is the API key that owns a job." Later: "The API key that creates a job owns it."
+- Accepted: "The API key that creates a job is its **owner key**."
 
 **A derived consequence.**
+
 - Rejected: "A job has exactly one schedule, and a schedule belongs to exactly one job. Two jobs therefore never share a schedule."
 - Accepted: "A job has exactly one schedule, and a schedule belongs to exactly one job."
 
 **A closure clause.**
+
 - Rejected: "A job is paused by its owner key, and nothing else pauses a job."
 - Accepted: "A job is paused by its owner key."
 - Stays, because it gives the complement an outcome: "A request with any other method is refused with status 405."
 
 **A forward citation.** Retries are defined in 6.2.
+
 - Rejected, in 5.1: "A run ends in one of three states, `succeeded`, `failed` or `cancelled`, and a failed run may be retried (6.2)."
 - Accepted, in 5.1: "A run ends in one of three states: `succeeded`, `failed` or `cancelled`."
 - Stays, because it says what the later section covers: "Retries are described in 6.2."
 
 **A quantifier over an unnamed set.**
+
 - Rejected: "Everything a request carries is validated before it is acted on."
 - Accepted: "Every request body is parsed with the JSON Schema of its endpoint before the handler runs. A body the schema rejects is refused with status 400."
 
 **The system as subject.**
+
 - Rejected: "The scheduler checks the schedule expression. The scheduler rejects an expression with a field out of range."
 - Accepted: "A `schedule` with a field out of its range is refused with status 400."
 
 **A fixed set of cases in prose.**
+
 - Rejected: "After a run fails, a new run is queued when the job's retry limit is not reached, no run is queued when the job is paused or deleted, and otherwise the job waits for its next scheduled time."
 - Accepted: "After a run fails, one of three things follows:
   - **Retry.** The job's `retryLimit` is not reached: a new run is queued.
@@ -147,5 +161,6 @@ Each pair shows text the checklist rejects and the text that replaces it. All ar
   - **Wait.** Otherwise: the job waits for its next scheduled time."
 
 **A non-foundational implementation detail.** The behavior is exact. How the implementer achieves it is theirs.
+
 - Rejected: "Queued runs live in a `runs` table with an index on `(jobId, scheduledAt)`. A `pollRuns` worker queries it every 500 ms and claims a run with `SELECT ... FOR UPDATE SKIP LOCKED`."
 - Accepted: "A queued run starts within one second of its scheduled time. Two workers never start the same run."
