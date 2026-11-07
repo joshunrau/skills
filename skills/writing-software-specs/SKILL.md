@@ -15,6 +15,8 @@ An experienced human software engineer who reads the whole document and builds f
 
 Build from `references/skeleton.md`. Sections run from most to least foundational. A lower section serves the sections above it and never contradicts them. The body is every section after Axioms except Blocking Decisions and Open Decisions.
 
+The spec reads from top to bottom. Each passage is understandable from what precedes it, and each sentence is understandable without following its citations. When a reader would naturally wonder about a topic that a later section settles, point to that section in a few words, rather than leave the question open or bend the text to avoid the topic.
+
 ## Missing Decisions
 
 A decision is missing when text being written, or already written, cannot be stated exactly without it and no existing decision settles it. A topic the spec does not yet address is not a missing decision.
@@ -95,12 +97,12 @@ Lists:
 What is not written:
 
 - Rationale. No "because", "so that", "therefore", "this serves" or trade-off anywhere. A sentence that explains why a rule exists is rationale even without these words.
-- A rule a second time. A rule is written once. A sentence elsewhere that relies on it carries the section number, never the rule's content.
+- A rule a second time. A rule is written once. A sentence elsewhere that relies on it carries the section number and may name the rule in a few words, such as "the ownership check (4.2)", but never restates its content.
 - A restatement of an axiom. No sentence in the body restates an axiom or cites one. A rule that chooses how an axiom is met is a decision and is written. A property an axiom gives every instance of something, such as every error message, is not repeated in the rule for one instance. A message whose content is a decision of its own, such as an error code a client matches on, is written once, where the rule that produces it is defined.
 - A consequence that follows from stated rules.
 - A closure clause: a clause whose only content is that nothing beyond the rule happens or exists, such as "and nothing else" or "and no other". A rule is complete as written. A clause that gives everything outside the rule an outcome, such as "any other value is rejected", is a rule and stays. A lead sentence that states a set is closed, such as "a job is in exactly one of the following states", is part of the rule and stays.
 - An example of a rule that is already exact in words. An example appears only for a syntax or a format, where it shows the exact shape.
-- A bare citation to a later section. A citation points backward only, as a bare section number in parentheses at the end of the clause that relies on it. A sentence that relies on a later section carries no citation. A later section is referred to only by a sentence that says what it covers, such as "The authorization mechanism is described in 5.1." This should be used sparingly; avoid forward references as the default. A core requirement is cited by axioms and nowhere else.
+- A bare citation to a later section. A citation points backward only, as a bare section number in parentheses at the end of the clause that relies on it. A later section is referred to by words that say what it covers, such as "The authorization mechanism is described in 5.1." A core requirement is cited by axioms and nowhere else.
 
 ## Anti-Patterns
 
@@ -137,11 +139,10 @@ Each pair shows text the checklist rejects and the text that replaces it. All ar
 - Accepted: "A job is paused by its owner key."
 - Stays, because it gives the complement an outcome: "A request with any other method is refused with status 405."
 
-**A forward citation.** Retries are defined in 6.2.
+**A bare forward citation.** Retries are defined in 6.2.
 
 - Rejected, in 5.1: "A run ends in one of three states, `succeeded`, `failed` or `cancelled`, and a failed run may be retried (6.2)."
-- Accepted, in 5.1: "A run ends in one of three states: `succeeded`, `failed` or `cancelled`."
-- Stays, because it says what the later section covers: "Retries are described in 6.2."
+- Accepted, in 5.1: "A run ends in one of three states: `succeeded`, `failed` or `cancelled`. Retries of a failed run are described in 6.2."
 
 **A quantifier over an unnamed set.**
 
