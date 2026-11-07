@@ -67,6 +67,8 @@ Wording-only edits skip this. Renaming a defined term is not wording-only.
 
 ## Format and Style
 
+Clarity comes before brevity. Cut a sentence that adds nothing the implementer needs to build or to understand a rule. Keep the context, transitions and connecting words that make a rule easy to follow, even when the rule would still be exact without them.
+
 Headings and emphasis:
 
 - Section heading: `### **1. {Section}.**`
@@ -78,7 +80,6 @@ Sentences and paragraphs:
 
 - Short declarative sentences in the present tense that state behavior as fact: "is", not "should". No RFC 2119 keywords.
 - One idea per sentence. Commas, colons and periods in place of em dashes.
-- Earn every detail: keep a sentence only if it changes what the implementer builds or their understanding of why a rule exists.
 - The subject of a sentence is the thing the rule governs, such as an input, a stored item, a message or an actor, not the system being specified. The passive is allowed, and is the usual form when the actor is the system. The system is the subject only of a sentence about the system as a whole.
 - A sentence names the set it governs. A quantifier with no noun ("everything", "anything", "whatever") or a clause standing in for a set ("what the input contains", "whichever applies") is a defect unless that sentence or the one before it enumerates the set.
 - A paragraph holds one rule in at most six sentences. A case list that follows a rule's lead sentence does not count toward the six.
@@ -93,7 +94,7 @@ Lists:
 
 What is not written:
 
-- Rationale. No "because", "so that", "therefore", "this serves" or trade-off anywhere. In a behavior section or a Structural Technical Decision, a sentence stays only if it changes what the implementer builds.
+- Rationale. No "because", "so that", "therefore", "this serves" or trade-off anywhere. A sentence that explains why a rule exists is rationale even without these words.
 - A rule a second time. A rule is written once. A sentence elsewhere that relies on it carries the section number, never the rule's content.
 - A restatement of an axiom. No sentence in the body restates an axiom or cites one. A rule that chooses how an axiom is met is a decision and is written. A property an axiom gives every instance of something, such as every error message, is not repeated in the rule for one instance. A message whose content is a decision of its own, such as an error code a client matches on, is written once, where the rule that produces it is defined.
 - A consequence that follows from stated rules.

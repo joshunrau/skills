@@ -17,7 +17,7 @@ Report each violation with its location. The body is every section after Axioms 
 
 - A rule whose wording admits two readings.
 - Two rules that give different answers for the same case.
-- A sentence in a behavior section or a Structural Technical Decision that does not change what is built.
+- A sentence in a behavior section or a Structural Technical Decision that neither changes what is built nor makes a rule easier to understand.
 
 ## Axioms
 
