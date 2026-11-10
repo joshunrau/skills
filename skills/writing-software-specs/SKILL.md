@@ -80,7 +80,7 @@ Headings and emphasis:
 - Section heading: `### **1. {Section}.**`
 - Subsection heading: `**1.1 {Subsection}.**` followed by its text on the same line. A subsection that needs them has sub-subsections in the same form: `**1.1.1 {Sub-subsection}.**`
 - Title case for headings.
-- Bold marks a term at its definition and the label of a list item. Italics mark a value from a set the spec enumerates that has no literal form, such as a status or a mode. A value that is both enumerated and literal takes a code span. No other emphasis.
+- Bold marks a term at its definition and the label of a list item. Italics mark a value from a set the spec enumerates that has no literal form, such as a status or a mode. A code span marks literal text, and a value that is both enumerated and literal takes one. No other emphasis.
 
 Paragraphs:
 

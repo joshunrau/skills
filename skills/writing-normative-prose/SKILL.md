@@ -5,7 +5,7 @@ description: Sentence, list and literal-text rules for a document that states ru
 
 # Writing Normative Prose
 
-Normative prose states rules and decisions as fact, for a reader who builds from them. "the document" below is the text being written, and "the reader" is whoever builds from it.
+Normative prose states rules and decisions as fact, for a reader who builds from them. "The document" below is the text being written, and "the reader" is whoever builds from it.
 
 ## Sentences
 

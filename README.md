@@ -18,12 +18,19 @@ npx skills add joshunrau/skills --skill interview
 
 ## Requirements
 
-The skills assume the you have specified the following in `AGENTS.md`:
+### Reference Files
+
+A skill never names a path in your project. It names a file or directory by its role, and your `AGENTS.md` gives the path of each role under a `## Reference Files` heading, one entry per role, with the role first:
 
 ```md
 ## Reference Files
 
-- `CODING_GUIDELINES.md`: the coding guidelines
-- `SPEC.md`: the product specification.
-- `docs/plans`: the plans directory
+- Coding guidelines: `docs/CODING_GUIDELINES.md`
+- Product specification: `SPEC.md`
+- Plans directory: `docs/plans/`
+- Scratch directory: `scratch/`
 ```
+
+### Skills That Need Another Skill
+
+`writing-software-specs` and `writing-implementation-plans` each load `writing-normative-prose`.
