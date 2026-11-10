@@ -138,7 +138,7 @@ Location(s):
 
 Finding(s): <What the code does and why it matters, in a few sentences. Include one or two sentences of context, such as what the code is for and where it sits, so a reader unfamiliar with the code can follow. Name identifiers; leave line numbers to Location(s).>
 
-Clause: <the section number and the quoted sentence of the product specification or the plan, when a clause applies.>
+Clause: <each clause of the product specification or the plan that applies: its number, such as 4.2 or A3, and its sentence, quoted.>
 
 Rule: <the source file and the quoted rule, when a rule applies.>
 
@@ -157,7 +157,7 @@ You test one axis's findings, listed in your prompt. Their reviewer has checked 
    - **Confirmed**: you followed the claim through the code and it holds.
    - **Refuted**: the claim is false, or the axis reference excludes it.
    - **Unverified**: you could neither confirm nor refute it.
-4. Mark a Confirmed or Unverified finding **Blocking** when, taking its claim as true, shipping the code as it stands would harm a user or the data: a wrong result, data lost or corrupted, data reaching someone not permitted to see it, access wrongly granted, or behaviour a user would meet that contradicts the clause the finding quotes.
+4. Mark a Confirmed or Unverified finding **Blocking** when, taking its claim as true, shipping the code as it stands would harm a user or the data: a wrong result, data lost or corrupted, data reaching someone not permitted to see it, access wrongly granted, or behavior a user would meet that contradicts the clause the finding quotes.
 5. Add no findings of your own. Run nothing that changes files, run no type check, linter or test, and read no git history.
 6. Return one entry per finding, in the order given and in the format below.
 
