@@ -80,12 +80,11 @@ These rules hold from the moment a plan is first written, and they bind an imple
 
 ## Format and Style
 
-- **Sentences.** Load the `writing-software-specs` skill. Every rule under its "Sentences and paragraphs" applies to a plan, except the limit on the length of a paragraph.
+- **Prose.** Load the `writing-normative-prose` skill. Every rule in it applies to a plan.
 - **Rationale.** Apart from a trace, at most a clause, and only where the implementer would otherwise undo or misapply the decision.
 - **No code blocks and no tables.** Wording that was decided, such as a label, a message or a sentence of the product specification, is quoted inline.
-- **Emphasis.** Headings are in title case. Bold marks the sentence that states a decision and the label of a list item. A code span marks literal text.
+- **Emphasis.** Headings are in title case. Bold marks the sentence that states a decision and the label of a list item.
 - **Citations.** A section of the product specification is cited by its bare number in parentheses, such as "(4.2)". A decision is cited as "decision 12", an amendment as "amendment 3", and another section of the plan by a link.
-- **Once.** A rule is written once. Any other place that relies on it cites it.
 
 ## Anti-Patterns
 

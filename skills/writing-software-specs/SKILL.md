@@ -73,33 +73,28 @@ Wording-only edits skip this. Renaming a defined term is not wording-only.
 
 Clarity comes before brevity. Cut a sentence that adds nothing the implementer needs to build or to understand a rule. Keep the context, transitions and connecting words that make a rule easy to follow, even when the rule would still be exact without them.
 
+Load the `writing-normative-prose` skill. Every rule in it applies to a spec. The rules below add to it.
+
 Headings and emphasis:
 
 - Section heading: `### **1. {Section}.**`
 - Subsection heading: `**1.1 {Subsection}.**` followed by its text on the same line. A subsection that needs them has sub-subsections in the same form: `**1.1.1 {Sub-subsection}.**`
 - Title case for headings.
-- Bold marks a term at its definition and the label of a list item. Italics mark a value from a set the spec enumerates that has no literal form, such as a status or a mode. Code spans mark literal text: anything that appears exactly as written in code, a file, a command line or a message the software sends or receives, such as an identifier, a flag, a header or a literal value. A value that is both enumerated and literal takes a code span. No other emphasis.
+- Bold marks a term at its definition and the label of a list item. Italics mark a value from a set the spec enumerates that has no literal form, such as a status or a mode. A value that is both enumerated and literal takes a code span. No other emphasis.
 
-Sentences and paragraphs:
+Paragraphs:
 
-- Short declarative sentences in the present tense that state behavior as fact: "is", not "should". No RFC 2119 keywords.
-- One idea per sentence. Commas, colons and periods in place of em dashes.
-- The subject of a sentence is the thing the rule governs, such as an input, a stored item, a message or an actor, not the system being specified. The passive is allowed, and is the usual form when the actor is the system. The system is the subject only of a sentence about the system as a whole.
-- A sentence names the set it governs. A quantifier with no noun ("everything", "anything", "whatever") or a clause standing in for a set ("what the input contains", "whichever applies") is a defect unless that sentence or the one before it enumerates the set.
 - A paragraph holds one rule in at most six sentences. A case list that follows a rule's lead sentence does not count toward the six.
-- Choose the exact word over the approximate one: "within five seconds", not "quickly"; "rounded to the nearest cent", not "rounded".
-- Use a technical term when it says something more precisely than plain words and the implementer would know it without looking it up: "case-insensitive", not "ignoring capital letters"; "every read returns the most recently saved value", not "reads are linearizable".
 
 Lists:
 
 - Prose by default. No tables.
-- A rule with a fixed set of cases is a lead sentence that names the set, then one list item per case: a bold label, the condition, and the outcome last. Two cases are still a list.
-- Any other list is a genuine enumeration, or a few sub-rules under one clause.
+- A list that is not the case list of a rule is a genuine enumeration, or a few sub-rules under one clause.
 
 What is not written:
 
 - Rationale. No "because", "so that", "therefore", "this serves" or trade-off anywhere. A sentence that explains why a rule exists is rationale even without these words.
-- A rule a second time. A rule is written once. A sentence elsewhere that relies on it carries the section number and may name the rule in a few words, such as "the ownership check (4.2)", but never restates its content.
+- A rule a second time. A sentence that relies on a rule written elsewhere carries its section number, such as "the ownership check (4.2)".
 - A restatement of an axiom. No sentence in the body restates an axiom or cites one. A rule that chooses how an axiom is met is a decision and is written. A property an axiom gives every instance of something, such as every error message, is not repeated in the rule for one instance. A message whose content is a decision of its own, such as an error code a client matches on, is written once, where the rule that produces it is defined.
 - A consequence that follows from stated rules.
 - A closure clause: a clause whose only content is that nothing beyond the rule happens or exists, such as "and nothing else" or "and no other". A rule is complete as written. A clause that gives everything outside the rule an outcome, such as "any other value is rejected", is a rule and stays. A lead sentence that states a set is closed, such as "a job is in exactly one of the following states", is part of the rule and stays.
@@ -145,24 +140,6 @@ Each pair shows text the checklist rejects and the text that replaces it. All ar
 
 - Rejected, in 5.1: "A run ends in one of three states, `succeeded`, `failed` or `cancelled`, and a failed run may be retried (6.2)."
 - Accepted, in 5.1: "A run ends in one of three states: `succeeded`, `failed` or `cancelled`. Retries of a failed run are described in 6.2."
-
-**A quantifier over an unnamed set.**
-
-- Rejected: "Everything a request carries is validated before it is acted on."
-- Accepted: "Every request body is parsed with the JSON Schema of its endpoint before the handler runs. A body the schema rejects is refused with status 400."
-
-**The system as subject.**
-
-- Rejected: "The scheduler checks the schedule expression. The scheduler rejects an expression with a field out of range."
-- Accepted: "A `schedule` with a field out of its range is refused with status 400."
-
-**A fixed set of cases in prose.**
-
-- Rejected: "After a run fails, a new run is queued when the job's retry limit is not reached, no run is queued when the job is paused or deleted, and otherwise the job waits for its next scheduled time."
-- Accepted: "After a run fails, one of three things follows:
-  - **Retry.** The job's `retryLimit` is not reached: a new run is queued.
-  - **Cancel.** The job is paused or deleted: no run is queued.
-  - **Wait.** Otherwise: the job waits for its next scheduled time."
 
 **A non-foundational implementation detail.** The behavior is exact. How the implementer achieves it is theirs.
 
