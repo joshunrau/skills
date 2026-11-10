@@ -1,11 +1,13 @@
 ---
 name: writing-software-specs
-description: Draft or edit a software specification (SPEC.md) for a platform or feature. Use when creating, revising, or extending a spec.
+description: Draft or edit the product specification for a platform or feature. Use when creating, revising, or extending a spec.
 ---
 
 # Writing Software Specs
 
 A spec is the top-level source of truth for a platform or feature before it is implemented. It establishes decided foundations for an implementer.
+
+The spec is the file that `AGENTS.md` lists as the product specification under `## Reference Files`. When none is listed there, ask the user for the path.
 
 ## Reader
 
