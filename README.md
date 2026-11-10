@@ -29,6 +29,17 @@ A skill never names a path in your project. It names a file or directory by its 
 - Product specification: `SPEC.md`
 - Plans directory: `docs/plans/`
 - Scratch directory: `scratch/`
+- Lint rules: `docs/LINT_RULES.md`
+```
+
+The lint rules are a file that describes what the project's linter enforces, such as a document generated from its rules.
+
+### Generated Files
+
+`code-inspection` leaves out each file that `.gitattributes` marks `linguist-generated`:
+
+```
+src/route-tree.gen.ts linguist-generated
 ```
 
 ### Skills That Need Another Skill
