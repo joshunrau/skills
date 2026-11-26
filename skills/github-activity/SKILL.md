@@ -74,27 +74,27 @@ Nesting goes deeper in two cases only. A theme item adds a level above the PRs i
 
 **Numbers.** Never count activity: no tallies of PRs, commits or issues, in the repo name, the category bullets, or at the end. A before-and-after figure that shows the size of a change is welcome, as a parenthetical: `(40 min -> 12 min)`.
 
-**Links.** Every PR and issue reference is a markdown link, so it is clickable: `[#412](https://github.com/acme/checkout-service/pull/412)`. Take the URL from the `url` field in the script's `--json` output. Commits have no URL, so an item built only from direct commits carries no reference at all; do not invent one. A one-line summary of a repo's small PRs and maintenance (see Maintenance) carries no links either.
+**Links.** Every PR and issue reference is a markdown link, so it is clickable: `[#412](https://github.com/acme/checkout-service/pull/412)`. Take the URL from the `url` field in the script's `--json` output. Commits have no URL, so an item built only from direct commits carries no reference at all; do not invent one. A sentence that sums up several PRs at once (see Maintenance) carries no links either.
 
 **Items.** One item per PR. When a PR makes several separate changes, list them as detail bullets under that one item; do not split the PR across items or chain the changes with "Also". PRs that follow up on each other may share one item carrying both links. Work without a PR (direct commits, releases, issue cleanup) is clustered into themed items. Drop merge commits entirely.
 
-When several PRs in a repo serve one goal, group them under a theme item that names the goal ("Faster local builds and CI"). Under a theme, each PR is a short title-case label naming its area ("Test Suite", "Moved to the New Bundler"), and its details carry the changes.
+When several PRs in a repo serve one goal, group them under a theme item that names the goal ("Faster local builds and CI"). Under a theme, each PR is a short title-case label for the work ("Test Suite", "Moved to the New Bundler"), and its details carry the changes.
 
-Every other item is a past-tense sentence with an implied subject. Lead with what the work achieves, not how: "Updated to support only the new runtime" rather than "Replaced the module loader". The mechanism goes in a detail bullet. Mark a breaking change or a major release in parentheses: `(breaking change)`, `(new major version)`.
+Every other landed item is a past-tense sentence with an implied subject. Lead with what the work achieves, not how: "Updated to support only the new runtime" rather than "Replaced the module loader". The mechanism goes in a detail bullet. Mark a breaking change or a major release in parentheses: `(breaking change)`, `(new major version)`.
 
 Give the reason only for a significant change whose reason is not obvious from the change itself, and put it in a detail bullet rather than appending it to the item. Small or self-explanatory work never gets a reason.
 
-A PR closed in favour of a replacement is not mentioned. Link only the PR that landed, and leave out the history of how it got there.
+Leave out a PR closed in favour of a replacement, along with the story of why it was replaced.
 
 **Details.** A major PR gets detail bullets naming its headline changes, up to five, written like items. Leave out side effects a reader would not ask about, such as a lint rule, test or doc change made along the way. A short parenthetical can carry scope: `(except the admin app)`. A small PR gets none.
 
-**Maintenance.** Routine upkeep, such as dependency, runtime, package manager and release-tooling bumps, gets no item of its own. Fold it into a clause of the repo's main item ("and updated the release workflow"). A repo whose work is all small changes and upkeep gets a single sentence.
+**Maintenance.** Routine upkeep, such as dependency, runtime version, package manager and release-tooling bumps, gets no item of its own. Fold it into a clause of the repo's main item ("and updated the release workflow"). A repo whose work is one modest change plus upkeep gets a single sentence covering all of it.
 
 **Plain language.** Describe a code change literally, as a change to code. Describe a new setting by what it does, not by its identifier. Avoid inflated verbs and buzzwords: no minted, leveraged, orchestrated, harnessed, empowered, unlocked, surfaced, or delivered. Prefer added, removed, fixed, renamed, moved, split, replaced, and rewrote. Do not reuse PR titles or conventional-commit prefixes.
 
 **No em dashes.** Never write an em dash. Use a comma, a colon, parentheses, or a second sentence. The single exception is text quoted verbatim from a source.
 
-**Open work.** Work that has not landed stays in its repo, phrased in the present participle, with `open` noted alongside the reference.
+**Open work.** Work that has not landed goes under its repo, phrased in the present participle, with `open` noted alongside the reference.
 
 **Leave out trivia.** Omit activity too small to mention, such as a single short comment on an issue.
 
@@ -145,5 +145,3 @@ A repo whose only activity falls under these categories gets its bold name and t
     - The deprecation banner wording
     - Whether the changelog belongs in the sidebar
 ```
-
-In that example, `http-client` also had an earlier PR for the same change, closed after review found regressions. It is left out, because only the replacement landed. `config-presets` had a PR for the runtime change and two for dependency bumps, summed up in one unlinked line.
